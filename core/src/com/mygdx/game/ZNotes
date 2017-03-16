@@ -1,0 +1,17 @@
+To-do
+
+Add gifs (to pause screen)
+
+Create Title screen
+
+Make end screen card
+Add sounds (Death sounds, flap sounds)
+Add background music
+
+Add collision
+
+Use Entity class to generalize entity creation
+
+
+Order Spawn:
+Background, Qazi, pipebot, pipetop, Laser, Score, Whynot
