@@ -1,6 +1,7 @@
 package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
@@ -14,6 +15,8 @@ public class Laser {
     long posx;
     long posy;
     int velx;
+
+    Sound Laser = Gdx.audio.newSound(Gdx.files.internal("Pew.mp3"));
 
     static boolean InBound;
 
@@ -38,6 +41,7 @@ public class Laser {
         //Sets laser at 100 (only if off screen)
         if (Gdx.input.isKeyJustPressed(Input.Keys.L) && !InBound) {
             posx = 100;
+            Laser.play(1.0f);
             System.out.println("Pew, you shot a laser!");
         }
 

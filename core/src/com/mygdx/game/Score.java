@@ -14,11 +14,14 @@ public class Score {
     long posx;
     long posy;
 
+
+    //Ccurrently off screen for pos.
     public Score() {
         texture = new Texture("Lilypichu.png");
         width = 50;
         height = 50;
-        posx = 425;
+        //usually 425
+        posx = 1000;
         posy = 425;
     }
 

@@ -4,9 +4,10 @@ Add gifs (to pause screen)
 
 Create Title screen
 
+Currently, score picture is spawned off screen and is incorrect. Needs fix.
+
 Make end screen card
-Add sounds (Death sounds, flap sounds)
-Add background music
+Add death sound
 
 Add collision
 
@@ -14,4 +15,4 @@ Use Entity class to generalize entity creation
 
 
 Order Spawn:
-Background, Qazi, pipebot, pipetop, Laser, Score, Whynot
+Background, Music, Qazi, pipebot, pipetop, Laser, Score, Whynot

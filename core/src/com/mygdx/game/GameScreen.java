@@ -19,6 +19,7 @@ public class GameScreen implements Screen {
 
     //Initialized Objects: Order of spawning in
     Background background;
+    Music music;
     Qazi qazi;
     Pipebot[] pipebot;
     Pipetop[] pipetop;
@@ -39,6 +40,9 @@ public class GameScreen implements Screen {
         //All following: Makes one or multiple new objects
 
         background = new Background();
+        music = new Music();
+        //Plays looping music
+        music.play();
         qazi = new Qazi();
 
         pipebot = new Pipebot[CPipe.numberofpipes];
