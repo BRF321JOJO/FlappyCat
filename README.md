@@ -7,7 +7,7 @@ Pressing P or Escape pauses the game
 
 Pressing R or Space resumes the game
 
-Pressing T restarts gameh
+Pressing T restarts game
 
 Secrets:
 
