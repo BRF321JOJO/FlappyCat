@@ -17,7 +17,7 @@ public class Background {
 
     public Background() {
         texture = new Texture ("Flappybackground.png");
-        width = CPipe.Rbound;
+        width = Constant.screenwidth;
         //516 height value of screen
         height = Constant.screenheight;
         posx = 0;

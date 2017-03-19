@@ -14,7 +14,6 @@ public class Whynot {
     long height;
     long posx;
     long posy;
-    int velx;
 
     Sound ImQazi = Gdx.audio.newSound(Gdx.files.internal("ImQazi.mp3"));
 
@@ -27,35 +26,28 @@ public class Whynot {
         //Sets large Qazi off screen
         posx = Constant.Holdingarea;
         posy = 10;
-        //Initial velocity, for moving Qazi
-        velx = 0;
     }
 
     public void update(float delta) {
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.Q) && !Constant.EndGame) {
             //Sends Qazi on screen
             posx = 300;
-            if(!Constant.EndGame) {
-                System.out.println("Lord Qazi has appeared" + "\n" + "Press Z to pray him away");
-            }
+            System.out.println("Lord Qazi has appeared" + "\n" + "Press Z to pray him away");
             ImQazi.play(1.0f);
             Constant.EndGame = true;
-
-            //Could also prevent Qazi from spawning if game ends, but will not for now
-
-            //Moves Qazi left.
-            //posx -= velx;
         }
 
         //Only works if key pressed and Qazi in bounds (to avoid pressing to update dead game.)
-        if ((Gdx.input.isKeyJustPressed(Input.Keys.Z)) && Qazi.InBound) {
-            //Puts large Qazi back off screen
-            posx = Constant.Holdingarea;
-            if (Constant.EndGame) {
-                System.out.println("Lord Qazi has been pleased and left");
+        if ((Gdx.input.isKeyJustPressed(Input.Keys.Z)) && CQazi.InBound) {
+            if (!Titlescreen.onscreen) {
+                //Puts large Qazi back off screen
+                posx = Constant.Holdingarea;
+                if (Constant.EndGame) {
+                    System.out.println("Lord Qazi has been pleased and left");
+                }
+                Constant.EndGame = false;
             }
-            Constant.EndGame = false;
         }
     }
 }

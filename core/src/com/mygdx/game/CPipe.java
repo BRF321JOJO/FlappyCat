@@ -8,7 +8,7 @@ public class CPipe {
     //Constants
 
     //Tells the number of pipes
-    static int numberofpipes = 8;
+    static int numberofpipes = 4;
     //Tells the max value which the for statements should use when the number of pipes change
     static int numpipesmax = (numberofpipes - 1);
 
@@ -49,22 +49,20 @@ public class CPipe {
 
 
 
-    //The following functions aren't used, but are the defined functions for the values of the random y positions.
+
+    //The following functions aren't used directly,
+    // but are the defined functions for the values of the random y positions.
 
 
     //Uses Sigmoid function
     //a = lower bound. b = upper bound. x = (rand*12)-6. L = b-a. a+L(1/(1-e^(x))) = height
     //x value can be changed for different randomness
     //More extreme
-    int pipeySigmoid = (int)Math.round(CPipe.pipemin + (CPipe.pipemax - CPipe.pipemin)*(1/(1+
-            (Math.pow (Constant.Eulere, Math.random()*12-6)))) - CPipe.height);
+    int pipeposySigmoid = (int)(Math.round(CPipe.pipemin + (CPipe.pipemax - CPipe.pipemin)*(1/(1+
+            (Math.pow (Constant.Eulere, Math.random()*12-6)))) - CPipe.height));
 
     //Calmer
-    int regrandom = (int)Math.round(Math.random()*CPipe.pipeyrandom + CPipe.pipemin - CPipe.height);
-
-
-    //Keep below:
-    //For old random y value version:
+    int regrandom = (int)(Math.round(Math.random()*CPipe.pipeyrandom + CPipe.pipemin - CPipe.height));
 
     //Degree of y randomness value pipes spawn at
     //200 good

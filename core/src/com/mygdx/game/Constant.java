@@ -16,6 +16,7 @@ public class Constant {
     public static int screenbottom = -4;
     public static int screentop = 516;
     public static int screenheight = 520;
+    public static int screenwidth = 900;
     public static int Holdingarea = 1000;
 
     Sound Cats = Gdx.audio.newSound(Gdx.files.internal("Cats.mp3"));
@@ -35,18 +36,20 @@ public class Constant {
     public void update(float delta) {
         //Pauses game
         if (Gdx.input.isKeyJustPressed(Input.Keys.P) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-
             if (!EndGame) {
                 System.out.println("Game paused");
             }
             EndGame = true;
         }
 
+        //Need to add only resumes if Qazi is not Colliding with pipe
+
         //Resumes Game
         //Prevents update to game if Qazi out of bounds (other function will continue game after death)
+        //or if it is the title screen
         if (Gdx.input.isKeyJustPressed(Input.Keys.R) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            if (Qazi.InBound) {
-                if (EndGame) {
+            if (CQazi.InBound && EndGame) {
+                if (!Titlescreen.onscreen) {
                     System.out.println("Game resumed");
                 }
                 EndGame = false;

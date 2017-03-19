@@ -10,27 +10,21 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 public class Qazi extends Entity{
 
-    //12 works traditionally. 14 for lighter gravity
-    static int velyconstant = 14;
-    static int startposy = 300;
-
     Sound Wingflap = Gdx.audio.newSound(Gdx.files.internal("Wingflap.mp3"));
-
-    //Helps to tell when game continue or stop when Qazi on or off screen
-    static boolean InBound;
+    Sound Dead = Gdx.audio.newSound(Gdx.files.internal("Dead.mp3"));
 
     public Qazi(SpriteBatch batch) {
         super(
                 new Texture("Salsacat.png"),
                 100,
-                startposy,
+                CQazi.startposy,
                 //(45 - 60) Qazi: width (50), height (50)
                 // Salsacat (67), height(67)
                 67,
                 67,
                 0,
                 //Initial velocity
-                velyconstant,
+                CQazi.velyconstant,
                 0,
                 batch
         );
@@ -57,7 +51,7 @@ public class Qazi extends Entity{
         //Moves image up
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             //10-20. 12 is fair
-            vely = velyconstant;
+            vely = CQazi.velyconstant;
 
             //Plays sound of flap
             Wingflap.play(1.0f);
@@ -76,14 +70,20 @@ public class Qazi extends Entity{
         long ceiling = 489 + height;
 
         //Defines InBound
+
         if (posy <= 0 || posy >= (MyGdxGame.V_HEIGHT - ceiling)) {
-            InBound = false;
-        } else {InBound = true;}
+            CQazi.InBound = false;
+        } else {CQazi.InBound = true;}
 
         //Stops image movement at ceiling and floor
-        if (!InBound) {
+        if (!CQazi.InBound) {
             vely = 0;
             Constant.EndGame = true;
+            //Makes it so only do action once after hit
+            if (!CQazi.dead) {
+                Dead.play(1.0f);
+                CQazi.dead = true;
+            }
         }
     }
 
@@ -94,5 +94,11 @@ public class Qazi extends Entity{
     @Override
     public void handleCollision(Entity e) {
         Constant.EndGame = true;
+        //Makes it so only do action once after hit pipe.
+        if (!CQazi.dead) {
+            Dead.play(1.0f);
+            CQazi.dead = true;
+        }
+        CQazi.InBound = false;
     }
 }

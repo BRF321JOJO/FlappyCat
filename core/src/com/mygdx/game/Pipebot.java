@@ -13,7 +13,8 @@ public class Pipebot extends Entity{
         super(
                 new Texture ("pipebot.png"),
                 posx,
-                (int)Math.round(CPipe.pipemin + (300 - CPipe.pipemin)*(1/(1+ (Math.pow (Constant.Eulere, Math.random()*12-6)))) - CPipe.height),
+                (int)(Math.round(CPipe.pipemin + (300 - CPipe.pipemin)*(1/(1+
+                        (Math.pow (Constant.Eulere, Math.random()*12-6)))) - CPipe.height)),
                 //posy = Math.round(Math.random()*CPipe.pipeyrandom + CPipe.pipemin - CPipe.height););
                 CPipe.width,
                 CPipe.height,
@@ -33,9 +34,8 @@ public class Pipebot extends Entity{
         if (posx<=CPipe.Lbound) {
             posx = CPipe.Rbound;
 
-            posy = (int)Math.round(CPipe.pipemin + (300 - CPipe.pipemin)*(1/(1+
-             (Math.pow (Constant.Eulere, Math.random()*12-6)))) - CPipe.height);
-
+            posy = (int)(Math.round(CPipe.pipemin + (300 - CPipe.pipemin)*(1/(1+
+                    (Math.pow (Constant.Eulere, Math.random()*12-6)))) - CPipe.height));
             //posy = Math.round(Math.random()*CPipe.pipeyrandom + CPipe.pipemin - CPipe.height);
         }
     }

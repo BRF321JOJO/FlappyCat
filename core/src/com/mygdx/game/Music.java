@@ -13,6 +13,6 @@ public class Music {
         MitchiriNekoMarch = Gdx.audio.newSound(Gdx.files.internal("MitchiriNekoMarch.mp3"));
     }
     public void play(){
-        MitchiriNekoMarch.loop(0.3f);
+        MitchiriNekoMarch.loop(0.2f);
     }
 }
