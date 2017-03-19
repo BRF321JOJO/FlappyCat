@@ -14,20 +14,17 @@ public class Score {
     long posx;
     long posy;
 
-
-    //Ccurrently off screen for pos.
+    //Currently off screen for pos.
     public Score() {
         texture = new Texture("Lilypichu.png");
         width = 50;
         height = 50;
-        //usually 425
-        posx = 1000;
+        //Usually 425
+        posx = Constant.Holdingarea;
         posy = 425;
     }
 
     public void update(float delta) {
-
         //Update in GameScreen update method
-
     }
 }

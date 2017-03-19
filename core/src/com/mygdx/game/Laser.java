@@ -24,7 +24,7 @@ public class Laser {
         texture = new Texture("laser.png");
         width = 50;
         height = 15;
-        posx = 1000;
+        posx = Constant.Holdingarea;
         posy = 300;
         //(15 - 50)
         velx = 20;
@@ -52,7 +52,7 @@ public class Laser {
 
         //Puts laser back to hold area once off screen
         if (posx == CPipe.Rbound) {
-            posx = 1000;
+            posx = Constant.Holdingarea;
         }
         //posy of laser depends on Qazi posy. In GameScreen update method.
     }

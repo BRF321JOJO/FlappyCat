@@ -7,7 +7,7 @@ Pressing P or Escape pauses the game
 
 Pressing R or Space resumes the game
 
-Press T continues game after death
+Pressing T restarts gameh
 
 Secrets:
 

@@ -16,6 +16,7 @@ public class Constant {
     public static int screenbottom = -4;
     public static int screentop = 516;
     public static int screenheight = 520;
+    public static int Holdingarea = 1000;
 
     Sound Cats = Gdx.audio.newSound(Gdx.files.internal("Cats.mp3"));
 
@@ -55,7 +56,7 @@ public class Constant {
         //Secrets
         if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)) {
             System.out.println(":3");
-            Cats.play(1.0f);
+            Cats.play(0.2f);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             System.out.println("Euler's number (e) is about " + Eulere);

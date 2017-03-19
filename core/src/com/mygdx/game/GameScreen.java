@@ -1,7 +1,6 @@
 package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -43,20 +42,28 @@ public class GameScreen implements Screen {
         music = new Music();
         //Plays looping music
         music.play();
-        qazi = new Qazi();
+        qazi = new Qazi(game.batch);
 
         pipebot = new Pipebot[CPipe.numberofpipes];
         for (int i = 0; i <= CPipe.numpipesmax; i++) {
             // Places pipes equal distances apart starting from RBound to further right. Note: Disregards pipe width
-            pipebot[i] = new Pipebot((i * CPipe.pipespace) + CPipe.Rbound);
+            pipebot[i] = new Pipebot(game.batch,
+                    (i * CPipe.pipespace) + CPipe.Rbound);
+
+            //Adds pipebot to entity ArrayList
+            Entity.entities.add(pipebot[i]);
         }
 
         pipetop = new Pipetop[CPipe.numberofpipes];
         for (int i = 0; i <= CPipe.numpipesmax; i++) {
             //Pipebot remain constant so can use Pipebot values
-            pipetop[i] = new Pipetop((i * CPipe.pipespace) + CPipe.Rbound, pipebot[i].posy + CPipe.pipeabove);
-        }
+            pipetop[i] = new Pipetop(game.batch,
+                    (i * CPipe.pipespace) + CPipe.Rbound,
+                    pipebot[i].posy + CPipe.pipeabove);
 
+            //Adds pipetop to enetiy ArrayList
+            Entity.entities.add(pipetop[i]);
+        }
         constant = new Constant();
         laser = new Laser();
         score = new Score();
@@ -85,17 +92,17 @@ public class GameScreen implements Screen {
         //Twice to extend background and allow loop. Value is added to the posx to allow be further.
         game.batch.draw(background.texture, background.posx + background.width, background.posy, background.width, background.height);
 
-        //Draws position of object: Qazi
-        game.batch.draw(qazi.texture, qazi.posx, qazi.posy, qazi.width, qazi.height);
+        //Draws Qazi
+        qazi.render();
 
         //Draws position of each 8 up pipes using array/for loop
         for (int i = 0; i <= CPipe.numpipesmax; i++) {
-            game.batch.draw(pipebot[i].texture, pipebot[i].posx, pipebot[i].posy, pipebot[i].width, pipebot[i].height);
+            pipebot[i].render();
         }
 
         //Draws position for each 8 down pipes using array/for loop
         for (int i = 0; i <= CPipe.numpipesmax; i++) {
-            game.batch.draw(pipetop[i].texture, pipetop[i].posx, pipetop[i].posy, pipetop[i].width, pipetop[i].height);
+            pipetop[i].render();
         }
 
         game.batch.draw(laser.texture, laser.posx, laser.posy, laser.width, laser.height);
@@ -158,9 +165,7 @@ public class GameScreen implements Screen {
 
             //Increases score when Qazi passes pipe
             for (int i = 0; i <= CPipe.numpipesmax; i++) {
-
-                if (pipebot[i].posx == (Qazi.posx - CPipe.width)) {
-
+                if (pipebot[i].posx == (qazi.posx - CPipe.width)) {
                     Score.scorevalue++;
                     System.out.println("Score: " + Score.scorevalue);
                 }
@@ -171,13 +176,41 @@ public class GameScreen implements Screen {
         constant.update(delta);
         whynot.update(delta);
 
-        //Continues game once space is pressed (but only if death from hitting ceiling or floor)
-        if (!Qazi.InBound && (Gdx.input.isKeyJustPressed(Input.Keys.T))) {
-            qazi.posy = 300;
-            qazi.vely = 12;
+        //Checks for collision. Comes from Entity class. Collision happens after everything updates
+        //Note: Only checks collision for Qazi
+        for (Entity e : Entity.entities) {
+            if (qazi.isCollide(e)) {
+                qazi.handleCollision(e);
+                e.handleCollision(qazi);
+            }
+        }
+
+        //Code no longer applies due to collision. Keep if collision is removed.
+
+//        //Continues game once space is pressed (but only if death from hitting ceiling or floor)
+//        if (!Qazi.InBound && (Gdx.input.isKeyJustPressed(Input.Keys.T))) {
+//            qazi.posy = Qazi.startposy;
+//            qazi.vely = Qazi.velyconstant;
+//            Qazi.InBound = true;
+//            Constant.EndGame = false;
+//            System.out.println("Game continued from where left off");
+//        }
+
+        if (Constant.EndGame && (Gdx.input.isKeyJustPressed(Input.Keys.T))) {
             Qazi.InBound = true;
             Constant.EndGame = false;
-            System.out.println("Game continued from where left off");
+            System.out.println("Game restarted");
+
+            //The following resets positions of all objects
+            qazi.posy = Qazi.startposy;
+            qazi.vely = Qazi.velyconstant;
+            for (int i = 0; i <= CPipe.numpipesmax; i++) {
+                pipebot[i].posy = (i * CPipe.pipespace) + CPipe.Rbound;
+            }
+            laser.posx = Constant.Holdingarea;
+
+            //Resets score
+            Score.scorevalue = 0;
         }
     }
 }

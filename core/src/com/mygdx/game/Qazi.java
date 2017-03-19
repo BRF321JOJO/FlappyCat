@@ -3,37 +3,37 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * Created by Marla Scrub on 2/18/2017.
  */
-public class Qazi {
+public class Qazi extends Entity{
 
-    //Functions
-
-    Texture texture;
-    int width;
-    int height;
-    static int posx;
-    int posy;
-    int vely;
+    //12 works traditionally. 14 for lighter gravity
+    static int velyconstant = 14;
+    static int startposy = 300;
 
     Sound Wingflap = Gdx.audio.newSound(Gdx.files.internal("Wingflap.mp3"));
 
     //Helps to tell when game continue or stop when Qazi on or off screen
     static boolean InBound;
 
-    public Qazi() {
-        texture = new Texture("Salsacat.png");
-        width = 67;
-        height = 67;
-        posx = 100;
-        posy = 300;
-        //Initial velocity
-        vely = 12;
-
-        //(45 - 60) Qazi: width (50), height (50)
-        //Salsacat (67), height(67)
+    public Qazi(SpriteBatch batch) {
+        super(
+                new Texture("Salsacat.png"),
+                100,
+                startposy,
+                //(45 - 60) Qazi: width (50), height (50)
+                // Salsacat (67), height(67)
+                67,
+                67,
+                0,
+                //Initial velocity
+                velyconstant,
+                0,
+                batch
+        );
     }
 
 //Methods
@@ -49,6 +49,7 @@ public class Qazi {
 
         //Changes y position based on vely value
         posy += vely;
+
         //Gdx.input.isKeyPressed(Input.Keys.SPACE)
         //This allows holding down key to take action, constantly
         //If isKeyJustPressed is used instead, then it only works each time it's pressed. Prevents holding down key to allow action.
@@ -56,7 +57,7 @@ public class Qazi {
         //Moves image up
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             //10-20. 12 is fair
-            vely = 12;
+            vely = velyconstant;
 
             //Plays sound of flap
             Wingflap.play(1.0f);
@@ -84,5 +85,14 @@ public class Qazi {
             vely = 0;
             Constant.EndGame = true;
         }
+    }
+
+    @Override
+    public void render() {
+        batch.draw(texture, posx, posy, width, height);
+    }
+    @Override
+    public void handleCollision(Entity e) {
+        Constant.EndGame = true;
     }
 }

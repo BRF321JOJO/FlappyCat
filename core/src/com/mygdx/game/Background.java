@@ -19,7 +19,7 @@ public class Background {
         texture = new Texture ("Flappybackground.png");
         width = CPipe.Rbound;
         //516 height value of screen
-        height = Constant.screentop;
+        height = Constant.screenheight;
         posx = 0;
         //-4 is the floor
         posy = Constant.screenbottom;

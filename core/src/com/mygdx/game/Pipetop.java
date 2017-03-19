@@ -1,27 +1,24 @@
 package com.mygdx.game;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * Created by Marla Scrub on 2/19/2017.
  */
-public class Pipetop {
+public class Pipetop extends Entity{
 
-    Texture texture;
-    //For picture
-    long width;
-    long height;
-    //For position
-    long posx;
-    long posy;
-    int velx;
-
-    public Pipetop(long posx, long posy) {
-        texture = new Texture ("pipetop.png");
-        width = CPipe.width;
-        height = CPipe.height;
-        this.posx = posx;
-        this.posy = posy;
-        velx = CPipe.pipevel;
+    public Pipetop (SpriteBatch batch, int posx, int posy) {
+        super (
+                new Texture ("pipetop.png"),
+                posx,
+                posy,
+                CPipe.width,
+                CPipe.height,
+                CPipe.pipevel,
+                0,
+                0,
+                batch
+        );
     }
 
     public void update(float delta) {
@@ -32,5 +29,14 @@ public class Pipetop {
 
             //Posy of pipetop is determined in Gamescreen update
         }
+    }
+
+    @Override
+    public void render() {
+        batch.draw(texture, posx, posy, width, height);
+    }
+    @Override
+    public void handleCollision(Entity e) {
+        Constant.EndGame = true;
     }
 }

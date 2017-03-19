@@ -25,7 +25,7 @@ public class Whynot {
         width = 500;
         height = 500;
         //Sets large Qazi off screen
-        posx = 1000;
+        posx = Constant.Holdingarea;
         posy = 10;
         //Initial velocity, for moving Qazi
         velx = 0;
@@ -51,7 +51,7 @@ public class Whynot {
         //Only works if key pressed and Qazi in bounds (to avoid pressing to update dead game.)
         if ((Gdx.input.isKeyJustPressed(Input.Keys.Z)) && Qazi.InBound) {
             //Puts large Qazi back off screen
-            posx = 1000;
+            posx = Constant.Holdingarea;
             if (Constant.EndGame) {
                 System.out.println("Lord Qazi has been pleased and left");
             }

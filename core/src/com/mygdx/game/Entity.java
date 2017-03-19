@@ -1,3 +1,5 @@
+//This class generalizes the use of an entity in the game. This allows generalization of collision
+
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -26,20 +28,21 @@ public abstract class Entity {
     public static ArrayList<Entity> entities = new ArrayList<Entity>();
 
     //CONSTRUCTOR
-    public Entity(int width, int height, int posx, int posy, int velx, int vely, int ID, Texture texture, SpriteBatch batch){
-        this.width = width;
-        this.height = height;
+    public Entity(Texture texture, int posx, int posy, int width, int height, int velx, int vely, int ID, SpriteBatch batch){
+        this.texture = texture;
         this.posx = posx;
         this.posy = posy;
+        this.width = width;
+        this.height = height;
         this.velx = velx;
         this.vely = vely;
         this.ID = ID;
         this.batch = batch;
-        this.texture = texture;
     }
 
     //METHODS
-    public boolean Collision(Entity e){
+    //This tests for collision
+    public boolean isCollide(Entity e){
         if(     posx < e.posx + e.width     &&
                 posx + width > e.posx       &&
                 posy < e.posy + e.height    &&
@@ -52,7 +55,8 @@ public abstract class Entity {
     }
 
     //ABSTRACT METHODS
-    //Varies depending on the subclass*
+    //This generally says what to do when rendering and collision is happening
+    //Varies depending on the subclass
     public abstract void render();
-
+    public abstract void handleCollision(Entity e);
 }

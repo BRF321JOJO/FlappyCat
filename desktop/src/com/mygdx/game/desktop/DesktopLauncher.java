@@ -13,8 +13,8 @@ public class DesktopLauncher {
 		//Configurations for Desktop Version
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.resizable=false;
-		cfg.height = LwjglApplicationConfiguration.getDesktopDisplayMode().height/3*2;
-		cfg.width = LwjglApplicationConfiguration.getDesktopDisplayMode().width/3*2;
+		cfg.height = 516;
+		cfg.width = 950;
 		cfg.foregroundFPS=60;
 		cfg.vSyncEnabled=true;
 
