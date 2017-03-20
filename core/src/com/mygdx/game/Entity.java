@@ -1,7 +1,6 @@
 //This class generalizes the use of an entity in the game. This allows generalization of collision
 
 package com.mygdx.game;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 

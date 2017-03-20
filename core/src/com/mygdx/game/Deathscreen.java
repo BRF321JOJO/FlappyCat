@@ -2,25 +2,27 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * Created by Marla Scrub on 3/19/2017.
  */
-public class Deathscreen {
-    Texture texture;
-    long width;
-    long height;
-    long posx;
-    long posy;
+public class Deathscreen extends Image{
 
     static boolean onscreen;
 
-    public Deathscreen() {
-        texture = new Texture("Deathscreen.png");
-        width = 500;
-        height = 50;
-        posx = Constant.Holdingarea;
-        posy = 350;
+    public Deathscreen(SpriteBatch batch) {
+        super (
+                new Texture("Deathscreen.png"),
+                Constant.Holdingarea,
+                350,
+                500,
+                50,
+                0,
+                0,
+                0,
+                batch
+        );
     }
 
     public void update(float delta) {
@@ -40,5 +42,10 @@ public class Deathscreen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.T) && Constant.EndGame && onscreen) {
             posx = Constant.Holdingarea;
         }
+    }
+
+    @Override
+    public void render() {
+        batch.draw(texture, posx, posy, width, height);
     }
 }

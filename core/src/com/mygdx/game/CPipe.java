@@ -9,7 +9,7 @@ public class CPipe {
 
     //Tells the number of pipes
     static int numberofpipes = 4;
-    //Tells the max value which the for statements should use when the number of pipes change
+    //Tells the max value which the for statements should use
     static int numpipesmax = (numberofpipes - 1);
 
     //Proportions of a pipes

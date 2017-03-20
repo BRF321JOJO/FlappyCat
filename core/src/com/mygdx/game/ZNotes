@@ -1,11 +1,12 @@
 To-do:
 
+Fix mute and unmuting
+
 Add gifs (to pause screen)
 
 Currently, score picture is spawned off screen and is incorrect. Needs fix.
 
-Make death screen card (says press T to restart)
-
+Add high score
 
 Order Spawn:
 Background, Music, Qazi, pipebot, pipetop, Laser, Score, Titlescreen, Deathscreen, Whynot

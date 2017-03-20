@@ -3,29 +3,28 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * Created by Marla Scrub on 3/8/2017.
  */
-public class Whynot {
-
-    Texture texture;
-    long width;
-    long height;
-    long posx;
-    long posy;
+public class Whynot extends Image{
 
     Sound ImQazi = Gdx.audio.newSound(Gdx.files.internal("ImQazi.mp3"));
 
-    //Using principal of whynot, can make a pause screen by spawning in a picture on screen when paused and back off.
-
-    public Whynot() {
-        texture = new Texture("PixelQazi.png");
-        width = 500;
-        height = 500;
-        //Sets large Qazi off screen
-        posx = Constant.Holdingarea;
-        posy = 10;
+    public Whynot(SpriteBatch batch) {
+        super (
+                new Texture("PixelQazi.png"),
+                //Sets large Qazi off screen
+                Constant.Holdingarea,
+                10,
+                500,
+                500,
+                0,
+                0,
+                0,
+                batch
+        );
     }
 
     public void update(float delta) {
@@ -49,5 +48,10 @@ public class Whynot {
                 Constant.EndGame = false;
             }
         }
+    }
+
+    @Override
+    public void render() {
+        batch.draw(texture, posx, posy, width, height);
     }
 }

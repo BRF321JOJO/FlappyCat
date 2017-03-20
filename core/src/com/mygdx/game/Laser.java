@@ -3,31 +3,30 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * Created by Marla Scrub on 3/10/2017.
  */
-public class Laser {
-
-    Texture texture;
-    int width;
-    int height;
-    long posx;
-    long posy;
-    int velx;
+public class Laser extends Image{
 
     Sound Laser = Gdx.audio.newSound(Gdx.files.internal("Pew.mp3"));
 
     static boolean InBound;
 
-    public Laser() {
-        texture = new Texture("laser.png");
-        width = 50;
-        height = 15;
-        posx = Constant.Holdingarea;
-        posy = 300;
-        //(15 - 50)
-        velx = 20;
+    public Laser(SpriteBatch batch) {
+        super (
+                new Texture("laser.png"),
+                Constant.Holdingarea,
+                300,
+                50,
+                15,
+                //(15 - 50)
+                20,
+                0,
+                0,
+                batch
+        );
     }
 
     public void update(float delta) {
@@ -55,5 +54,10 @@ public class Laser {
             posx = Constant.Holdingarea;
         }
         //posy of laser depends on Qazi posy. In GameScreen update method.
+    }
+
+    @Override
+    public void render() {
+        batch.draw(texture, posx, posy, width, height);
     }
 }

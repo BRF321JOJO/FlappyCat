@@ -40,10 +40,10 @@ public class GameScreen implements Screen {
 
         //All following: Makes one or multiple new objects
 
-        background = new Background();
+        background = new Background(game.batch);
         music = new Music();
-        //Plays looping music
-        if (Debug.musiclooping) {
+        //Plays looping music (depends on mute function)
+        if (Music.musiclooping && Debug.musicallowed) {
             music.play();
         }
         qazi = new Qazi(game.batch);
@@ -71,11 +71,11 @@ public class GameScreen implements Screen {
             Entity.entities.add(pipetop[i]);
         }
         constant = new Constant();
-        laser = new Laser();
+        laser = new Laser(game.batch);
         score = new Score();
-        titlescreen = new Titlescreen();
-        deathscreen = new Deathscreen();
-        whynot = new Whynot();
+        titlescreen = new Titlescreen(game.batch);
+        deathscreen = new Deathscreen(game.batch);
+        whynot = new Whynot(game.batch);
     }
 
     //METHODS
@@ -96,7 +96,7 @@ public class GameScreen implements Screen {
         game.batch.begin();
 
         //Must be first as in back
-        game.batch.draw(background.texture, background.posx, background.posy, background.width, background.height);
+        background.render();
         //Twice to extend background and allow loop. Value is added to the posx to allow be further.
         game.batch.draw(background.texture, background.posx + background.width, background.posy, background.width, background.height);
 
@@ -109,11 +109,11 @@ public class GameScreen implements Screen {
             pipetop[i].render();
         }
 
-        game.batch.draw(laser.texture, laser.posx, laser.posy, laser.width, laser.height);
+        laser.render();
         game.batch.draw(score.texture, score.posx, score.posy, score.width, score.height);
-        game.batch.draw(titlescreen.texture, titlescreen.posx, titlescreen.posy, titlescreen.width, titlescreen.height);
-        game.batch.draw(deathscreen.texture, deathscreen.posx, deathscreen.posy, deathscreen.width, deathscreen.height);
-        game.batch.draw(whynot.texture, whynot.posx, whynot.posy, whynot.width, whynot.height);
+        titlescreen.render();
+        deathscreen.render();
+        whynot.render();
 
         game.batch.end();
     }
@@ -175,17 +175,15 @@ public class GameScreen implements Screen {
         }
 
         //Note: The following functions stay out of the if(!constant.EndGame) condition
+        music.update(delta);
         constant.update(delta);
         titlescreen.update(delta);
         deathscreen.update(delta);
         whynot.update(delta);
 
 
-
-
-        //Following: Methods for GameScreen
-
-
+        //Following:
+        // Methods for GameScreen
 
         //Checks for collision. Comes from Entity class. Collision happens after everything updates
         //Note: Only checks collision for player

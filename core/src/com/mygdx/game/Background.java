@@ -1,29 +1,27 @@
 package com.mygdx.game;
-
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
  * Created by Marla Scrub on 3/5/2017.
  */
 
-public class Background {
+public class Background extends Image{
 
-    Texture texture;
-    long width;
-    long height;
-    long posx;
-    long posy;
-    int velx;
-
-    public Background() {
-        texture = new Texture ("Flappybackground.png");
-        width = Constant.screenwidth;
-        //516 height value of screen
-        height = Constant.screenheight;
-        posx = 0;
-        //-4 is the floor
-        posy = Constant.screenbottom;
-        velx = 1;
+    public Background (SpriteBatch batch) {
+        super(
+                new Texture ("Flappybackground.png"),
+                0,
+                //-4 is the floor
+                Constant.screenbottom,
+                Constant.screenwidth,
+                //516 height value of screen
+                Constant.screenheight,
+                1,
+                0,
+                0,
+                batch
+        );
     }
 
     public void update(float delta) {
@@ -35,5 +33,10 @@ public class Background {
         if (posx<= -width) {
             posx = 0;
         }
+    }
+
+    @Override
+    public void render() {
+        batch.draw(texture, posx, posy, width, height);
     }
 }

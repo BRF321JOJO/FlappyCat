@@ -2,25 +2,27 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * Created by Marla Scrub on 3/19/2017.
  */
-public class Titlescreen {
-    Texture texture;
-    long width;
-    long height;
-    long posx;
-    long posy;
+public class Titlescreen extends Image{
 
     static boolean onscreen;
 
-    public Titlescreen() {
-        texture = new Texture("Titlescreen.png");
-        width = 500;
-        height = 50;
-        posx = 200;
-        posy = 350;
+    public Titlescreen(SpriteBatch batch) {
+        super (
+                new Texture("Titlescreen.png"),
+                200,
+                350,
+                500,
+                50,
+                0,
+                0,
+                0,
+                batch
+        );
     }
 
     public void update(float delta) {
@@ -39,5 +41,10 @@ public class Titlescreen {
             posx = Constant.Holdingarea;
             Constant.EndGame = false;
         }
+    }
+
+    @Override
+    public void render() {
+        batch.draw(texture, posx, posy, width, height);
     }
 }
