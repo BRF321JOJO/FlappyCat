@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Deathscreen extends Image{
 
     static boolean onscreen;
+    static boolean Printonce = true;
 
     public Deathscreen(SpriteBatch batch) {
         super (
@@ -37,6 +38,11 @@ public class Deathscreen extends Image{
         if (CQazi.dead) {
             posx = 200;
         }
+        //Tells when can print dead message
+        if (CQazi.dead && Printonce) {
+            Printonce = false;
+            System.out.println("You died");
+        }
 
         //Moves image back
         if (Gdx.input.isKeyJustPressed(Input.Keys.T) && Constant.EndGame && onscreen) {
@@ -45,7 +51,5 @@ public class Deathscreen extends Image{
     }
 
     @Override
-    public void render() {
-        batch.draw(texture, posx, posy, width, height);
-    }
+    public void render() {batch.draw(texture, posx, posy, width, height);}
 }

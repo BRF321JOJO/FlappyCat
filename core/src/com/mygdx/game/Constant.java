@@ -12,8 +12,10 @@ public class Constant {
     //Value of e for random function
     public static double Eulere = 2.718281828459045;
 
-    //Experimentally found in background (screenheight is absolute distance between)
+    //Experimentally found in Background (screenheight is absolute distance between)
     public static int screenbottom = -4;
+    //Usually 516
+    //Now 600
     public static int screentop = 516;
     public static int screenheight = 520;
     public static int screenwidth = 900;

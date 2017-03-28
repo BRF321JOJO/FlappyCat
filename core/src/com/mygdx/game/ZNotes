@@ -1,12 +1,13 @@
 To-do:
 
 Fix mute and unmuting
+For some reason, if I allow the pause function of exist, the game disregards my volume setting
+
+Make HUD not overlay everything
 
 Add gifs (to pause screen)
-
-Currently, score picture is spawned off screen and is incorrect. Needs fix.
 
 Add high score
 
 Order Spawn:
-Background, Music, Qazi, pipebot, pipetop, Laser, Score, Titlescreen, Deathscreen, Whynot
+Background, Music, Qazi, pipebot, pipetop, Laser, HUD, Titlescreen, Deathscreen, Whynot

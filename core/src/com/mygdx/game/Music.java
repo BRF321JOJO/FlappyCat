@@ -8,31 +8,21 @@ import com.badlogic.gdx.Gdx;
  */
 public class Music {
 
-    static boolean musiclooping = true;
+    static boolean musiclooping;
 
     Sound MitchiriNekoMarch;
 
-    public Music() {
-        MitchiriNekoMarch = Gdx.audio.newSound(Gdx.files.internal("MitchiriNekoMarch.mp3"));
-    }
+    public Music() {MitchiriNekoMarch = Gdx.audio.newSound(Gdx.files.internal("MitchiriNekoMarch.mp3"));}
 
-    public void play() {
-        MitchiriNekoMarch.loop(0.2f);
-    }
+    public void play() {MitchiriNekoMarch.loop(0.15f);}
+
+    //public void pause() {MitchiriNekoMarch.loop();}
 
 
     public void update(float delta) {
 
-        //Mute and Unmute
-
 //        if (Gdx.input.isKeyJustPressed(Input.Keys.M)) {
-//            if (musiclooping) {
-//                musiclooping = false;
-//            }
-//            if (!musiclooping) {
-//                musiclooping = true;
-//            }
+//            musiclooping = false;
 //        }
-//    }
     }
 }

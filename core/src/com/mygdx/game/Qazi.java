@@ -18,10 +18,8 @@ public class Qazi extends Entity{
                 new Texture("Salsacat.png"),
                 100,
                 CQazi.startposy,
-                //(45 - 60) Qazi: width (50), height (50)
-                // Salsacat (67), height(67)
-                67,
-                67,
+                CQazi.playerwidth,
+                CQazi.playerheight,
                 0,
                 //Initial velocity
                 CQazi.velyconstant,
@@ -62,12 +60,14 @@ public class Qazi extends Entity{
             vely--;
         }
 
-        //The ceiling should be the display height - Qazi height (to cause head to hit ceiling)
-        //Use instead:
-        //V_Height - a value which is experimentally the top of the screen
-        //Best 489 for now (Larger moves ceiling down, less moves up)
-        //*Note: Differing heights are fine. Does not require change of 489.
-        long ceiling = 489 + height;
+        // Larger moves ceiling down, less moves up)
+        //*Note: Differing heights are fine. Does not require change of experimentaltop value.
+        //For height: 516 (489)
+        //For height: 600. (400)
+        int experimentaltop = 489;
+        int ceiling = experimentaltop + height;
+
+
 
         //Defines InBound
 
@@ -88,9 +88,7 @@ public class Qazi extends Entity{
     }
 
     @Override
-    public void render() {
-        batch.draw(texture, posx, posy, width, height);
-    }
+    public void render() {batch.draw(texture, posx, posy, width, height);}
     @Override
     public void handleCollision(Entity e) {
         Constant.EndGame = true;

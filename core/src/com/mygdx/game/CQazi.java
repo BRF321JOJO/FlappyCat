@@ -5,11 +5,17 @@ package com.mygdx.game;
  */
 public class CQazi {
 
-    //12 works traditionally. 14 for lighter gravity
-    static int velyconstant = 14;
-    static int startposy = 300;
+    //Proportions of player
+    // Salsacat (67), height(67)
+    static int playerwidth = 55;
+    static int playerheight = 55;
 
-    //Prevents acctions from constantly happening if colliding with objects
+    //Controls gravity (15 good)
+    static int velyconstant = 14;
+    //Where player starts on screen
+    static int startposy = 250;
+
+    //Prevents actions from constantly happening if colliding with objects
     static boolean dead = false;
 
     //Helps to tell when game continue or stop when Qazi on or off screen

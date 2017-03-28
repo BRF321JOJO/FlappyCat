@@ -8,7 +8,7 @@ public class CPipe {
     //Constants
 
     //Tells the number of pipes
-    static int numberofpipes = 4;
+    static int numberofpipes = 3;
     //Tells the max value which the for statements should use
     static int numpipesmax = (numberofpipes - 1);
 
@@ -17,8 +17,8 @@ public class CPipe {
     static int height = 1000;
 
     //Distance between oncoming pipes
-    //(145 - 295) 195 good
-    static int pipespace = width + 195;
+    //At least 195
+    static int pipespace = width + 295;
 
     //Where pipes spawn and despawn
     //(900 - 970) 950 good

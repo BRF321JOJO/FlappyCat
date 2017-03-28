@@ -32,13 +32,13 @@ public class Whynot extends Image{
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q) && !Constant.EndGame) {
             //Sends Qazi on screen
             posx = 300;
-            System.out.println("Lord Qazi has appeared" + "\n" + "Press Z to pray him away");
+            System.out.println("Lord Qazi has appeared! Press Q to pray him away");
             ImQazi.play(1.0f);
             Constant.EndGame = true;
         }
 
         //Only works if key pressed and Qazi in bounds (to avoid pressing to update dead game.)
-        if ((Gdx.input.isKeyJustPressed(Input.Keys.Z)) && CQazi.InBound) {
+        else if ((Gdx.input.isKeyJustPressed(Input.Keys.Q)) && CQazi.InBound) {
             if (!Titlescreen.onscreen) {
                 //Puts large Qazi back off screen
                 posx = Constant.Holdingarea;
@@ -51,7 +51,5 @@ public class Whynot extends Image{
     }
 
     @Override
-    public void render() {
-        batch.draw(texture, posx, posy, width, height);
-    }
+    public void render() {batch.draw(texture, posx, posy, width, height);}
 }

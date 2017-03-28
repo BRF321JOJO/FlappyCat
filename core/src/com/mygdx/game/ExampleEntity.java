@@ -13,9 +13,7 @@ public class ExampleEntity extends Entity {
 
     //Methods
     @Override
-    public void render() {
-        batch.draw(texture, posx, posy, width, height);
-    }
+    public void render() {batch.draw(texture, posx, posy, width, height);}
 
     @Override
     public void handleCollision(Entity e) {

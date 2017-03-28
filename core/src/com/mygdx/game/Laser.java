@@ -57,7 +57,5 @@ public class Laser extends Image{
     }
 
     @Override
-    public void render() {
-        batch.draw(texture, posx, posy, width, height);
-    }
+    public void render() {batch.draw(texture, posx, posy, width, height);}
 }

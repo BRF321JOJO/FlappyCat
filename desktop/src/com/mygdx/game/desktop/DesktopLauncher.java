@@ -2,6 +2,7 @@ package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.mygdx.game.Constant;
 import com.mygdx.game.MyGdxGame;
 
 public class DesktopLauncher {
@@ -13,8 +14,8 @@ public class DesktopLauncher {
 		//Configurations for Desktop Version
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.resizable=false;
-		cfg.height = 516;
-		cfg.width = 900;
+		cfg.height = Constant.screentop;
+		cfg.width = Constant.screenwidth;
 		cfg.foregroundFPS=60;
 		cfg.vSyncEnabled=true;
 

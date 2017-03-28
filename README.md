@@ -11,11 +11,10 @@ Pressing T restarts game
 
 Secrets:
 
-Pressing Q summons Qazi and pauses
-
-Pressing Z makes Qazi go away and resumes
+Pressing Q summons Qazi and pauses and after makes Qazi go away and resumes
 
 Press L for laser
 
 Press 3
-Press E
+
+Press C
