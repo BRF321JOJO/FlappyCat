@@ -21,21 +21,22 @@ public class Constant {
     public static int screenwidth = 900;
     public static int Holdingarea = 1000;
 
+    //int counter for code not every frame
+    static int framecounter = 0;
+
+
     Sound Cats = Gdx.audio.newSound(Gdx.files.internal("Cats.mp3"));
 
-    //Ends game:
 
     //Boolean that helps tell when game ends (Updates stop)
     static boolean EndGame;
 
-    //Method that stops updates
-    //It is indeed used
-    public static boolean EndGame() {
-        return EndGame;
-    }
-
 
     public void update(float delta) {
+
+        //Increases counter value for delayed actions
+        framecounter++;
+
         //Pauses game
         if (Gdx.input.isKeyJustPressed(Input.Keys.P) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             if (!EndGame) {
@@ -44,13 +45,11 @@ public class Constant {
             EndGame = true;
         }
 
-        //Need to add only resumes if Qazi is not Colliding with pipe
-
         //Resumes Game
-        //Prevents update to game if Qazi out of bounds (other function will continue game after death)
+        //Prevents update to game if Player out of bounds (other function will continue game after death)
         //or if it is the title screen
         if (Gdx.input.isKeyJustPressed(Input.Keys.R) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            if (CQazi.InBound && EndGame) {
+            if (CPlayer.InBound && EndGame) {
                 if (!Titlescreen.onscreen) {
                     System.out.println("Game resumed");
                 }
@@ -61,7 +60,7 @@ public class Constant {
         //Secrets
         if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)) {
             System.out.println(":3");
-            Cats.play(0.2f);
+            Cats.play(Music.catvolume);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             System.out.println("Euler's number (e) is about " + Eulere);

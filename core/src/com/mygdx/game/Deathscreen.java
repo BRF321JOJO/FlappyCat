@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 public class Deathscreen extends Image{
 
-    static boolean onscreen;
+    static boolean InBound;
     static boolean Printonce = true;
 
     public Deathscreen(SpriteBatch batch) {
@@ -30,22 +30,22 @@ public class Deathscreen extends Image{
 
         //Defines onscreen
         if (posx >=0 && posx <=CPipe.Rbound) {
-            onscreen = true;
-        } else {onscreen = false;}
+            InBound = true;
+        } else {InBound = false;}
 
 
         //Defines when image should be on-screen
-        if (CQazi.dead) {
+        if (CPlayer.dead) {
             posx = 200;
         }
         //Tells when can print dead message
-        if (CQazi.dead && Printonce) {
+        if (CPlayer.dead && Printonce) {
             Printonce = false;
             System.out.println("You died");
         }
 
         //Moves image back
-        if (Gdx.input.isKeyJustPressed(Input.Keys.T) && Constant.EndGame && onscreen) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.T) && Constant.EndGame && InBound) {
             posx = Constant.Holdingarea;
         }
     }

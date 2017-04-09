@@ -1,0 +1,21 @@
+To-do:
+
+Add gifs (to pause screen)
+
+
+Order Spawn:
+Background, Music, Qazi, pipebot, pipetop, Laser, HUD, Titlescreen, Deathscreen, Whynot, Credits
+
+
+//  int counter for code not every frame
+
+//  int counter = 0;
+//  counter++;
+    //Happens every x frames
+//  if (counter % x == 0)
+//  {*Code that runs*}
+
+
+//Gdx.input.isKeyPressed(Input.Keys.SPACE)
+        //This allows holding down key to take action, constantly
+        //If isKeyJustPressed is used instead, then it only works each time it's pressed. Prevents holding down key to allow action.

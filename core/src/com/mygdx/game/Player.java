@@ -8,21 +8,21 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 /**
  * Created by Marla Scrub on 2/18/2017.
  */
-public class Qazi extends Entity{
+public class Player extends Entity{
 
     Sound Wingflap = Gdx.audio.newSound(Gdx.files.internal("Wingflap.mp3"));
     Sound Dead = Gdx.audio.newSound(Gdx.files.internal("Dead.mp3"));
 
-    public Qazi(SpriteBatch batch) {
+    public Player(SpriteBatch batch) {
         super(
                 new Texture("Salsacat.png"),
                 100,
-                CQazi.startposy,
-                CQazi.playerwidth,
-                CQazi.playerheight,
+                CPlayer.startposy,
+                CPlayer.playerwidth,
+                CPlayer.playerheight,
                 0,
                 //Initial velocity
-                CQazi.velyconstant,
+                CPlayer.velyconstant,
                 0,
                 batch
         );
@@ -31,28 +31,17 @@ public class Qazi extends Entity{
 //Methods
 
     public void update(float delta) {
-        //int counter for code not every frame
-
-//            int counter = 0;
-//            counter++;
-//            if counter == 3 { *Put at end of code run*
-//                *Code that runs*
-//            }
 
         //Changes y position based on vely value
         posy += vely;
 
-        //Gdx.input.isKeyPressed(Input.Keys.SPACE)
-        //This allows holding down key to take action, constantly
-        //If isKeyJustPressed is used instead, then it only works each time it's pressed. Prevents holding down key to allow action.
-
         //Moves image up
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            //10-20. 12 is fair
-            vely = CQazi.velyconstant;
+
+            vely = CPlayer.velyconstant;
 
             //Plays sound of flap
-            Wingflap.play(1.0f);
+            Wingflap.play(Music.wingflapvolume);
         }
 
         //Moves image constantly down
@@ -60,7 +49,7 @@ public class Qazi extends Entity{
             vely--;
         }
 
-        // Larger moves ceiling down, less moves up)
+        // Larger moves ceiling down, less moves up
         //*Note: Differing heights are fine. Does not require change of experimentaltop value.
         //For height: 516 (489)
         //For height: 600. (400)
@@ -72,17 +61,18 @@ public class Qazi extends Entity{
         //Defines InBound
 
         if (posy <= 0 || posy >= (MyGdxGame.V_HEIGHT - ceiling)) {
-            CQazi.InBound = false;
-        } else {CQazi.InBound = true;}
+            CPlayer.InBound = false;
+        } else {
+            CPlayer.InBound = true;}
 
         //Stops image movement at ceiling and floor
-        if (!CQazi.InBound) {
+        if (!CPlayer.InBound) {
             vely = 0;
             Constant.EndGame = true;
-            //Makes it so only do action once after hit
-            if (!CQazi.dead) {
-                Dead.play(1.0f);
-                CQazi.dead = true;
+            //Makes it so only make sound once after death and not repeated
+            if (!CPlayer.dead) {
+                Dead.play(Music.deadvolume);
+                CPlayer.dead = true;
             }
         }
     }
@@ -93,10 +83,10 @@ public class Qazi extends Entity{
     public void handleCollision(Entity e) {
         Constant.EndGame = true;
         //Makes it so only do action once after hit pipe.
-        if (!CQazi.dead) {
-            Dead.play(1.0f);
-            CQazi.dead = true;
+        if (!CPlayer.dead) {
+            Dead.play(Music.deadvolume);
+            CPlayer.dead = true;
         }
-        CQazi.InBound = false;
+        CPlayer.InBound = false;
     }
 }

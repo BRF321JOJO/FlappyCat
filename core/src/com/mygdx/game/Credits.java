@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Credits extends Image{
 
     //Constants
-    //(500- 2500)
+    //(500 - 2500)
     static int pictureheight = 2000;
     static boolean InBound;
 
@@ -33,9 +33,7 @@ public class Credits extends Image{
 
         //Defines InBound
         if (posx <= 0 || posx >= Constant.screenwidth) {
-            if (posy >= (Constant.screentop)) {
-                InBound = false;
-            }
+            InBound = false;
         } else {InBound = true;}
 
         //Moves image on screen
@@ -50,11 +48,10 @@ public class Credits extends Image{
             posy += vely;
         }
 
-//        //Sets back to Holding area
-//        if(!InBound) {
-//            posx = Constant.Holdingarea;
-//        }
-
+        //Sets back to Holding area once off screen
+        if(posy >= Constant.screentop) {
+            posx = Constant.Holdingarea;
+        }
     }
 
     @Override

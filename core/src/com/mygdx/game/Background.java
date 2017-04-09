@@ -8,6 +8,10 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Background extends Image{
 
+    //(1 is reg. 2 is max)
+    int everyxframes = 2;
+
+
     public Background (SpriteBatch batch) {
         super(
                 new Texture ("Flappybackground.png"),
@@ -26,8 +30,12 @@ public class Background extends Image{
 
     public void update(float delta) {
 
-        //Moves background left across screen
-        posx -= velx;
+        //Happens every 3 frames
+        if (Constant.framecounter % everyxframes == 0) {
+
+            //Moves background left across screen
+            posx -= velx;
+        }
 
         //Puts the picture back
         if (posx<= -width) {
@@ -36,7 +44,5 @@ public class Background extends Image{
     }
 
     @Override
-    public void render() {
-        batch.draw(texture, posx, posy, width, height);
-    }
+    public void render() {batch.draw(texture, posx, posy, width, height);}
 }

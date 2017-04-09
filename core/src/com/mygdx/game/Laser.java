@@ -40,7 +40,7 @@ public class Laser extends Image{
         //Sets laser at 100 (only if off screen)
         if (Gdx.input.isKeyJustPressed(Input.Keys.L) && !InBound) {
             posx = 100;
-            Laser.play(1.0f);
+            Laser.play(Music.laservolume);
             System.out.println("Pew, you shot a laser!");
         }
 
@@ -53,7 +53,7 @@ public class Laser extends Image{
         if (posx == CPipe.Rbound) {
             posx = Constant.Holdingarea;
         }
-        //posy of laser depends on Qazi posy. In GameScreen update method.
+        //posy of laser depends on Player posy. [In GameScreen, update method]
     }
 
     @Override

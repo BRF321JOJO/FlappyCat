@@ -20,7 +20,7 @@ public class GameScreen implements Screen {
     //Initialized Objects: Order of spawning in
     Background background;
     Music music;
-    Qazi qazi;
+    Player player;
     Pipebot[] pipebot;
     Pipetop[] pipetop;
     Constant constant;
@@ -31,6 +31,8 @@ public class GameScreen implements Screen {
     Deathscreen deathscreen;
     Whynot whynot;
     Credits credits;
+
+    Mouse mouse;
 
     //For score update sound
     Sound Flappypoint = Gdx.audio.newSound(Gdx.files.internal("Flappypoint.mp3"));
@@ -52,16 +54,10 @@ public class GameScreen implements Screen {
 
         //Plays looping music (depends on debug mute)
         if (Debug.musicallowed) {
-            music.play();
+            music.startmusic();
         }
 
-        //Pauses music
-//        if (!Music.musiclooping) {
-//            music.pause();
-//        }
-
-
-        qazi = new Qazi(game.batch);
+        player = new Player(game.batch);
 
         //Kept these pipe for statements separate to make readable
 
@@ -93,6 +89,7 @@ public class GameScreen implements Screen {
         deathscreen = new Deathscreen(game.batch);
         whynot = new Whynot(game.batch);
         credits = new Credits(game.batch);
+        mouse = new Mouse();
     }
 
     //METHODS
@@ -117,8 +114,8 @@ public class GameScreen implements Screen {
         //Twice to extend background and allow loop. Value is added to the posx to allow be further.
         game.batch.draw(background.texture, background.posx + background.width, background.posy, background.width, background.height);
 
-        //Draws Qazi
-        qazi.render();
+        //Draws Player
+        player.render();
 
         //Draws position of each 8 up and down pipes using array/for loop
         for (int i = 0; i <= CPipe.numpipesmax; i++) {
@@ -127,6 +124,14 @@ public class GameScreen implements Screen {
         }
 
         laser.render();
+
+        //Draws HUD
+        //Must end and being hud so can draw properly in order.
+        game.batch.end();
+        hud.stage.draw();
+        game.batch.begin();
+
+
         titlescreen.render();
         deathscreen.render();
         whynot.render();
@@ -134,10 +139,9 @@ public class GameScreen implements Screen {
 
         game.batch.end();
 
-        //Draws HUD or whatever
         //Below unrequired as of now
         //game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
-        hud.stage.draw();
+
     }
 
     @Override
@@ -162,6 +166,42 @@ public class GameScreen implements Screen {
     }
 
 
+    //Methods
+
+
+    //Restarts game entirely
+    public void restartgame () {
+        //Reset values
+        CPlayer.InBound = true;
+        Constant.EndGame = false;
+        CPlayer.dead = false;
+        System.out.println("Game restarted");
+
+        //The following resets positions of all objects
+        player.posy = CPlayer.startposy;
+        player.vely = CPlayer.velyconstant;
+
+        for (int i = 0; i <= CPipe.numpipesmax; i++) {
+            pipebot[i].posx = (i * CPipe.pipespace) + CPipe.Rbound;
+            pipetop[i].posx = (i * CPipe.pipespace) + CPipe.Rbound;
+
+            //Resets y pos. (Otherwise would just move back without new randomness)
+//            pipebot[i].posy = (int) (Math.round(CPipe.pipemin + (300 - CPipe.pipemin) * (1 / (1 +
+//                             (Math.pow(Constant.Eulere, Math.random() * 12 - 6)))) - CPipe.height));
+            pipebot[i].posy = (int) Math.round(Math.random() * CPipe.pipeyrandom + CPipe.pipemin - CPipe.height);
+        }
+
+        laser.posx = Constant.Holdingarea;
+
+        //Resets score
+        Score.scorevalue = 0;
+        Deathscreen.Printonce = true;
+        Score.once = false;
+
+    }
+
+
+
     public void update(float delta) {
 
         //Says to only update if the EndGame isn't true
@@ -170,7 +210,7 @@ public class GameScreen implements Screen {
             background.update(delta);
 
             //Updates player position
-            qazi.update(delta);
+            player.update(delta);
 
             //Updates each pipe positions
             for (int i = 0; i <= CPipe.numpipesmax; i++) {
@@ -187,23 +227,22 @@ public class GameScreen implements Screen {
 
             //Shoots laser based from player posy (only if off screen)
             if (Gdx.input.isKeyJustPressed(Input.Keys.L) && !Laser.InBound) {
-                laser.posy = qazi.posy;
+                laser.posy = player.posy;
             }
 
             score.update(delta);
 
             //Increases score when player passes pipe
             for (int i = 0; i <= CPipe.numpipesmax; i++) {
-                if (pipebot[i].posx == (qazi.posx - CPipe.width)) {
+                if (pipebot[i].posx == (player.posx - CPipe.width)) {
                     Score.scorevalue++;
                     System.out.println("Score: " + Score.scorevalue);
-                    //Sound level (0.1 - 0.3 good)
-                    Flappypoint.play(0.2F);
+                    Flappypoint.play(Music.flappypointvolume);
                 }
             }
 
             //Updates score on screen
-            //Needs to be after score.update and it's increase above.
+            //Needs to be where is now [after score.update and it's increase above]
             hud.updateScore("Score: " + Score.scorevalue);
             hud.updateHighscore("Highscore: " + Score.highscorevalue);
         }
@@ -215,20 +254,28 @@ public class GameScreen implements Screen {
         deathscreen.update(delta);
         whynot.update(delta);
         credits.update(delta);
+        mouse.update(delta);
 
 
         //Following:
         // Methods for GameScreen
 
+        //Restarts game
+        if (Constant.EndGame && (Gdx.input.isKeyJustPressed(Input.Keys.T))) {
+            if (!Titlescreen.onscreen) {
+                restartgame();
+            }
+        }
+
         //Checks for collision. Comes from Entity class. Collision happens after everything updates
         //Note: Only checks collision for player
         if (Debug.playerCollide) {
             for (Entity e : Entity.entities) {
-                if (qazi.isCollide(e)) {
+                if (player.isCollide(e)) {
                     //Tests for collision
                     //Put any specifics or sounds in their respective classes, not here
-                    qazi.handleCollision(e);
-                    e.handleCollision(qazi);
+                    player.handleCollision(e);
+                    e.handleCollision(player);
                 }
             }
         }
@@ -236,50 +283,12 @@ public class GameScreen implements Screen {
         //*Code only applies if Collision off*
         //Continues game once space is pressed (but only if death from hitting ceiling or floor)
         if (!Debug.playerCollide) {
-            if (!CQazi.InBound && (Gdx.input.isKeyJustPressed(Input.Keys.T))) {
-                qazi.posy = CQazi.startposy;
-                qazi.vely = CQazi.velyconstant;
-                CQazi.InBound = true;
+            if (!CPlayer.InBound && (Gdx.input.isKeyJustPressed(Input.Keys.T))) {
+                player.posy = CPlayer.startposy;
+                player.vely = CPlayer.velyconstant;
+                CPlayer.InBound = true;
                 Constant.EndGame = false;
                 System.out.println("Game continued from where left off");
-            }
-        }
-        //*Code only applies if Collision off*
-
-
-        //Restarts game entirely
-
-        if (Constant.EndGame && (Gdx.input.isKeyJustPressed(Input.Keys.T))) {
-            if (!Titlescreen.onscreen) {
-                //Reset values
-                CQazi.InBound = true;
-                Constant.EndGame = false;
-                CQazi.dead = false;
-                System.out.println("Game restarted");
-
-                //The following resets positions of all objects
-                qazi.posy = CQazi.startposy;
-                qazi.vely = CQazi.velyconstant;
-                for (int i = 0; i <= CPipe.numpipesmax; i++) {
-                    pipebot[i].posx = (i * CPipe.pipespace) + CPipe.Rbound;
-                    pipetop[i].posx = (i * CPipe.pipespace) + CPipe.Rbound;
-
-                    //Resets y pos. Otherwise would just move back without new randomness
-//                    pipebot[i].posy = (int) (Math.round(CPipe.pipemin + (300 - CPipe.pipemin) * (1 / (1 +
-//                            (Math.pow(Constant.Eulere, Math.random() * 12 - 6)))) - CPipe.height));
-                    pipebot[i].posy = (int)Math.round(Math.random()*CPipe.pipeyrandom + CPipe.pipemin - CPipe.height);
-                }
-
-                //Found another possibility
-                //If set pipebot[i].posy to high/low value works also because moves pipes off screen in y position,
-                //*but causes first instance the pipes to be far away
-
-                laser.posx = Constant.Holdingarea;
-
-                //Resets score
-                Score.scorevalue = 0;
-                Deathscreen.Printonce = true;
-                Score.statedonce = false;
             }
         }
     }

@@ -3,7 +3,7 @@ package com.mygdx.game;
 /**
  * Created by Marla Scrub on 3/19/2017.
  */
-public class CQazi {
+public class CPlayer {
 
     //Proportions of player
     // Salsacat (67), height(67)
@@ -18,6 +18,6 @@ public class CQazi {
     //Prevents actions from constantly happening if colliding with objects
     static boolean dead = false;
 
-    //Helps to tell when game continue or stop when Qazi on or off screen
+    //Helps to tell when game continue or stop when player on or off screen
     static boolean InBound;
 }

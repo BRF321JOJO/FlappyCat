@@ -7,15 +7,10 @@ public class Score {
 
     static int scorevalue = 0;
     static int highscorevalue = 0;
-    static boolean statedonce = false;
+    static boolean once = false;
 
 
     public void update(float delta) {
-
-        if (scorevalue >= 10 && !statedonce && Constant.EndGame) {
-            System.out.println("Wow, you did pretty well!");
-            statedonce = true;
-        }
 
         if (scorevalue > highscorevalue) {
             highscorevalue++;
