@@ -1,6 +1,8 @@
 # Iwasforced
 I wasn't really forced.
 
+If you want to download, ask me so I can give you a jar file of the lastest version or maybe you can just download the code itself. ;3
+
 Features:
 
 Pressing P or Escape pauses the game  
