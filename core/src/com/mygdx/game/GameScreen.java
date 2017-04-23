@@ -30,9 +30,9 @@ public class GameScreen implements Screen {
     Titlescreen titlescreen;
     Deathscreen deathscreen;
     Whynot whynot;
-    Credits credits;
+    //Credits credits;
 
-    Mouse mouse;
+    //Mouse mouse;
 
     //For score update sound
     Sound Flappypoint = Gdx.audio.newSound(Gdx.files.internal("Flappypoint.mp3"));
@@ -54,7 +54,7 @@ public class GameScreen implements Screen {
 
         //Plays looping music (depends on debug mute)
         if (Debug.musicallowed) {
-            music.startmusic();
+            music.startMitchiri();
         }
 
         player = new Player(game.batch);
@@ -88,14 +88,13 @@ public class GameScreen implements Screen {
         titlescreen = new Titlescreen(game.batch);
         deathscreen = new Deathscreen(game.batch);
         whynot = new Whynot(game.batch);
-        credits = new Credits(game.batch);
-        mouse = new Mouse();
+        //credits = new Credits(game.batch);
+        //mouse = new Mouse();
     }
 
     //METHODS
     @Override
-    public void show() {
-    }
+    public void show() {}
 
     @Override
     public void render(float delta) {
@@ -135,22 +134,13 @@ public class GameScreen implements Screen {
         titlescreen.render();
         deathscreen.render();
         whynot.render();
-        credits.render();
+        //credits.render();
 
         game.batch.end();
-
-        //Below unrequired as of now
-        //game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
-
     }
 
     @Override
     public void resize(int width, int height) {
-        //Changes HUD
-        //Below unrequired as of now
-        //gamePort.update(width, height, true);
-        //Below unrequied as of now
-        //hud.viewport.update(width, height, true);
     }
     @Override
     public void pause() {
@@ -168,6 +158,14 @@ public class GameScreen implements Screen {
 
     //Methods
 
+    static boolean gyrate;
+    private static int circlewidth = 30;
+    private static int circleheight = 30;
+    private static int circleradius = 30;
+    private static double circletheta = 0;
+    private static double circlemotion = circletheta += 0.1;
+    private int circlex = (int)((circlewidth / 2) + Math.cos(circlemotion) * circleradius) + 500;
+    private int circley = (int)((circleheight / 2) + Math.sin(circlemotion) * circleradius) + 10;
 
     //Restarts game entirely
     public void restartgame () {
@@ -200,7 +198,8 @@ public class GameScreen implements Screen {
 
     }
 
-
+    //Moves Qazi in circle
+    //public static void QaziDance () {}
 
     public void update(float delta) {
 
@@ -245,6 +244,7 @@ public class GameScreen implements Screen {
             //Needs to be where is now [after score.update and it's increase above]
             hud.updateScore("Score: " + Score.scorevalue);
             hud.updateHighscore("Highscore: " + Score.highscorevalue);
+
         }
 
         //Note: The following functions stay out of the if(!constant.EndGame) condition
@@ -253,16 +253,27 @@ public class GameScreen implements Screen {
         titlescreen.update(delta);
         deathscreen.update(delta);
         whynot.update(delta);
-        credits.update(delta);
-        mouse.update(delta);
 
+        //credits.update(delta);
+        //mouse.update(delta);
+
+
+        //Moves Qazi in circle
+        if (Whynot.Herorequirespause) {
+            whynot.posx = circlex;
+            whynot.posy = circley;
+        }
+        if (circlemotion >= 2*Math.PI) {
+            circlemotion = 0;
+        }
 
         //Following:
         // Methods for GameScreen
 
+
         //Restarts game
         if (Constant.EndGame && (Gdx.input.isKeyJustPressed(Input.Keys.T))) {
-            if (!Titlescreen.onscreen) {
+            if (!Titlescreen.onscreen && !Whynot.InBound) {
                 restartgame();
             }
         }

@@ -10,7 +10,7 @@ import com.badlogic.gdx.audio.Sound;
 public class Constant {
 
     //Value of e for random function
-    public static double Eulere = 2.718281828459045;
+    public static double Eulere = Math.E;
 
     //Experimentally found in Background (screenheight is absolute distance between)
     public static int screenbottom = -4;

@@ -12,7 +12,9 @@ public class Whynot extends Image{
 
     Sound ImQazi = Gdx.audio.newSound(Gdx.files.internal("ImQazi.mp3"));
 
-    static boolean SongofStormsplayedonce;
+    static boolean Ecstacyplayedonce;
+    static boolean Heroplayedonce;
+    static boolean Herorequirespause;
     static boolean InBound;
 
     public Whynot(SpriteBatch batch) {
@@ -32,8 +34,10 @@ public class Whynot extends Image{
 
     public void update(float delta) {
 
+        int randomnumber = (int)(Math.random()*100);
+
         //Defines InBound
-        if (posx == 300) {
+        if (posx <= 0 && posx>=Constant.screenwidth) {
         InBound = true;}
         else {InBound = false;}
 
@@ -47,8 +51,14 @@ public class Whynot extends Image{
 
             //Stops backgroundmusic (dramatically) and plays sound and song(only if not muted)
             if (!Music.musicmuted) {
-                Music.pausemusic();
-                Music.playSongofStorms();
+                Music.pauseMitchiri();
+
+                if(randomnumber>=50) {
+                    Music.playEcstasy();
+                } else {
+                    Music.playINeedaHero();
+                    Herorequirespause = true;
+                }
             }
 
             //Stops game
@@ -69,10 +79,14 @@ public class Whynot extends Image{
 
                     //Controls music
                     if (!Music.musicmuted) {
-                        Music.resumemusic();
-                        Music.pauseSongofStormsmusic();
+                        Music.resumeMitchiri();
+                        if (!Herorequirespause) {
+                            Music.pauseEcstasy();
+                        }
+                        if (Herorequirespause) {
+                            Music.pauseINeedaHero();
+                        }
                     }
-
                     //Resumes game
                     Constant.EndGame = false;
                 }

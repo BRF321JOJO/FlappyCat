@@ -9,68 +9,90 @@ import com.badlogic.gdx.Gdx;
 public class Music {
 
     //All the volumes for the sounds
-    static float musicvolume  = 0.4f;
-    static float SongofStormsmusicvolume = 0.4f;
+
+    //Song volumes
+    private static float Mitchirivolume  = 0.4f;
+    private static float Ecstasyvolume = 0.4f;
+    private static float INeedaHerovolume = 0.4f;
+
+    //Event volumes
     //(0.1 - 0.3 good)
-    static float flappypointvolume = 0.3f;
-    static float catvolume = 0.2f;
-    static float laservolume = 1.0f;
-    static float deadvolume = 1.0f;
-    static float wingflapvolume = 0.7f;
-    static float IMQAZIvolume = 1.0f;
+    public static float flappypointvolume = 0.3f;
+    public static float catvolume = 0.2f;
+    public static float laservolume = 1.0f;
+    public static float deadvolume = 1.0f;
+    public static float wingflapvolume = 0.7f;
+    public static float IMQAZIvolume = 1.0f;
 
     //Defines which song is played
-    String backgroundsong = "MitchiriNekoMarch.mp3";
-    String SongofStormsbackgroundsong = "Song of Storms.mp3";
+    String Mitchirisong = "MitchiriNekoMarch.mp3";
+    String Ecstasysong = "Ecstasy of Gold Accordion Cover.mp3";
+    String INeedaHerosong = "I Need a Hero.mp3";
 
     //Helps to define if music is playing
     static boolean musicmuted = false;
 
-    //May break game, made into static as apposed to non-static
-    static Sound backgroundmusic;
-    static Sound SongofStormsbackgroundmusic;
+    private static Sound Mitchirimusic;
+    private static Sound Ecstasymusic;
+    private static Sound INeedaHeromusic;
 
     public Music() {
         //List of songs defined here
-        backgroundmusic = Gdx.audio.newSound(Gdx.files.internal(backgroundsong));
-        SongofStormsbackgroundmusic = Gdx.audio.newSound(Gdx.files.internal(SongofStormsbackgroundsong));
+        Mitchirimusic = Gdx.audio.newSound(Gdx.files.internal(Mitchirisong));
+        Ecstasymusic = Gdx.audio.newSound(Gdx.files.internal(Ecstasysong));
+        INeedaHeromusic = Gdx.audio.newSound(Gdx.files.internal(INeedaHerosong));
     }
 
     //Defines general idea of backgroundmusic
-    static public void startmusic() {backgroundmusic.loop(musicvolume);}
-    static public void pausemusic() {backgroundmusic.pause();}
-    static public void resumemusic() {backgroundmusic.resume();}
+    static public void startMitchiri() {Mitchirimusic.loop(Mitchirivolume);}
+    static public void pauseMitchiri() {Mitchirimusic.pause();}
+    static public void resumeMitchiri() {Mitchirimusic.resume();}
 
     //Defines Song of Storms
-    static public void startSongofStormsmusic() {SongofStormsbackgroundmusic.loop(SongofStormsmusicvolume);}
-    static public void pauseSongofStormsmusic() {SongofStormsbackgroundmusic.pause();}
-    static public void resumeSongofStormsmusic() {SongofStormsbackgroundmusic.resume();}
+    static public void startEcstasy() {Ecstasymusic.loop(Ecstasyvolume);}
+    static public void pauseEcstasy() {Ecstasymusic.pause();}
+    static public void resumeEcstasy() {Ecstasymusic.resume();}
+
+    static public void startINeedaHero() {INeedaHeromusic.loop(INeedaHerovolume);}
+    static public void pauseINeedaHero() {INeedaHeromusic.pause();}
+    static public void resumeINeedaHero() {INeedaHeromusic.resume();}
 
 
-    //Defines Song of Storms being played once(Starts if never played, otherwise resumes)
-    public static void playSongofStorms () {
-        if (!Whynot.SongofStormsplayedonce) {
-            Music.startSongofStormsmusic();
-            Whynot.SongofStormsplayedonce = true;
-        } else {
-            Music.resumeSongofStormsmusic();
-        }
+    //Defines songs being played once (Starts if never played, otherwise resumes)
+    public static void playEcstasy () {
+        if (!Whynot.Ecstacyplayedonce) {
+            Music.startEcstasy();
+            Whynot.Ecstacyplayedonce = true;
+        } else {Music.resumeEcstasy();}
     }
+
+    public static void playINeedaHero () {
+        //GameScreen.QaziDance();
+        if (!Whynot.Heroplayedonce) {
+            Music.startINeedaHero();
+            Whynot.Heroplayedonce = true;
+        } else {Music.resumeINeedaHero();}
+    }
+
+
 
     public void update(float delta) {
 
         //Mute function
         if (Gdx.input.isKeyJustPressed(Input.Keys.M) && !musicmuted) {
-            pausemusic();
-            pauseSongofStormsmusic();
+            pauseMitchiri();
+            pauseEcstasy();
+            if (Whynot.Herorequirespause) {
+                pauseINeedaHero();
+            }
             musicmuted = true;
 
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.M) && musicmuted) {
             if (!Whynot.InBound) {
-                resumemusic();
+                resumeMitchiri();
             }
             if (Whynot.InBound) {
-                playSongofStorms();
+                playEcstasy();
             }
 
             musicmuted = false;
