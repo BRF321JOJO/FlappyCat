@@ -15,9 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import java.io.File;
 
 /**
- * Created by Marla Scrub on 3/25/2017.
- */
-/**
  * Created by peter on 3/25/17.
  */
 

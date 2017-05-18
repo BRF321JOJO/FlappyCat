@@ -67,7 +67,6 @@ public class Music {
     }
 
     public static void playINeedaHero () {
-        //GameScreen.QaziDance();
         if (!Whynot.Heroplayedonce) {
             Music.startINeedaHero();
             Whynot.Heroplayedonce = true;
@@ -75,26 +74,28 @@ public class Music {
     }
 
 
-
     public void update(float delta) {
 
         //Mute function
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.M) && !musicmuted) {
+            //Mutes all songs by pausing them, regardless if they have ben played before
             pauseMitchiri();
             pauseEcstasy();
-            if (Whynot.Herorequirespause) {
-                pauseINeedaHero();
-            }
+            pauseINeedaHero();
             musicmuted = true;
 
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.M) && musicmuted) {
+            //Only resumes Mitchiri if Whynot image not on screen to prevent Mitchiri playing when Whynot songs...
+            //...meant to be playing
             if (!Whynot.InBound) {
                 resumeMitchiri();
             }
+            //Only plays Ecstacy (the most likely to play) if unmuted while Whynot image is on screen to prevent...
+            //...allowing the player to unmute and get the secret song.
             if (Whynot.InBound) {
                 playEcstasy();
             }
-
             musicmuted = false;
         }
     }

@@ -13,6 +13,7 @@ public class Whynot extends Image{
     Sound ImQazi = Gdx.audio.newSound(Gdx.files.internal("ImQazi.mp3"));
 
     static boolean Ecstacyplayedonce;
+    static boolean Ecstacyrequirespause;
     static boolean Heroplayedonce;
     static boolean Herorequirespause;
     static boolean InBound;
@@ -35,9 +36,10 @@ public class Whynot extends Image{
     public void update(float delta) {
 
         int randomnumber = (int)(Math.random()*100);
+        int percentchanceofHero = 15;
 
         //Defines InBound
-        if (posx <= 0 && posx>=Constant.screenwidth) {
+        if (posx >= 0 && posx<=Constant.screenwidth) {
         InBound = true;}
         else {InBound = false;}
 
@@ -53,14 +55,14 @@ public class Whynot extends Image{
             if (!Music.musicmuted) {
                 Music.pauseMitchiri();
 
-                if(randomnumber>=50) {
+                if(randomnumber>=percentchanceofHero) {
                     Music.playEcstasy();
+                    Ecstacyrequirespause = true;
                 } else {
                     Music.playINeedaHero();
                     Herorequirespause = true;
                 }
             }
-
             //Stops game
             Constant.EndGame = true;
         }
@@ -70,17 +72,18 @@ public class Whynot extends Image{
             //Only works if key pressed and Player in bounds (to avoid pressing to update dead game.)
             if (CPlayer.InBound) {
                 if (!Titlescreen.onscreen) {
-
                     if (Constant.EndGame) {
                         System.out.println("Lord Qazi has been pleased and left");
                     }
                     //Puts large Player back off screen
                     posx = Constant.Holdingarea;
 
-                    //Controls music
+                    //Controls music after Q pressed again
+                    //Resumes Mitchiri if music mot muted
                     if (!Music.musicmuted) {
                         Music.resumeMitchiri();
-                        if (!Herorequirespause) {
+                        //Pauses music playing depending on which on has played
+                        if (Ecstacyrequirespause) {
                             Music.pauseEcstasy();
                         }
                         if (Herorequirespause) {

@@ -158,18 +158,10 @@ public class GameScreen implements Screen {
 
     //Methods
 
-    static boolean gyrate;
-    private static int circlewidth = 30;
-    private static int circleheight = 30;
-    private static int circleradius = 30;
-    private static double circletheta = 0;
-    private static double circlemotion = circletheta += 0.1;
-    private int circlex = (int)((circlewidth / 2) + Math.cos(circlemotion) * circleradius) + 500;
-    private int circley = (int)((circleheight / 2) + Math.sin(circlemotion) * circleradius) + 10;
-
     //Restarts game entirely
+
     public void restartgame () {
-        //Reset values
+        //The following reset all values
         CPlayer.InBound = true;
         Constant.EndGame = false;
         CPlayer.dead = false;
@@ -188,19 +180,27 @@ public class GameScreen implements Screen {
 //                             (Math.pow(Constant.Eulere, Math.random() * 12 - 6)))) - CPipe.height));
             pipebot[i].posy = (int) Math.round(Math.random() * CPipe.pipeyrandom + CPipe.pipemin - CPipe.height);
         }
-
         laser.posx = Constant.Holdingarea;
+        whynot.posx = Constant.Holdingarea;
 
-        //Resets score
+        //The following resets scores
         Score.scorevalue = 0;
         Deathscreen.Printonce = true;
         Score.once = false;
 
+        //The following resets the music
+        //Resets game by making Mitchiri start and all other music stop (only is music is not muted anyway)
+        if (!Music.musicmuted) {
+            Music.pauseEcstasy();
+            Music.pauseINeedaHero();
+            Music.resumeMitchiri();
+        }
     }
 
-    //Moves Qazi in circle
-    //public static void QaziDance () {}
+    //End of code which restarts game
 
+
+    //Updates game using update method in each class
     public void update(float delta) {
 
         //Says to only update if the EndGame isn't true
@@ -258,14 +258,6 @@ public class GameScreen implements Screen {
         //mouse.update(delta);
 
 
-        //Moves Qazi in circle
-        if (Whynot.Herorequirespause) {
-            whynot.posx = circlex;
-            whynot.posy = circley;
-        }
-        if (circlemotion >= 2*Math.PI) {
-            circlemotion = 0;
-        }
 
         //Following:
         // Methods for GameScreen
@@ -273,7 +265,8 @@ public class GameScreen implements Screen {
 
         //Restarts game
         if (Constant.EndGame && (Gdx.input.isKeyJustPressed(Input.Keys.T))) {
-            if (!Titlescreen.onscreen && !Whynot.InBound) {
+            //Cannot restart on title screen
+            if (!Titlescreen.onscreen) {
                 restartgame();
             }
         }
