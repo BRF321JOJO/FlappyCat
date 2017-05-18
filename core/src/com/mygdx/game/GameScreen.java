@@ -194,6 +194,7 @@ public class GameScreen implements Screen {
             Music.pauseEcstasy();
             Music.pauseINeedaHero();
             Music.resumeMitchiri();
+            Whynot.Heroplaying = false;
         }
     }
 
@@ -244,16 +245,16 @@ public class GameScreen implements Screen {
             //Needs to be where is now [after score.update and it's increase above]
             hud.updateScore("Score: " + Score.scorevalue);
             hud.updateHighscore("Highscore: " + Score.highscorevalue);
-
         }
 
         //Note: The following functions stay out of the if(!constant.EndGame) condition
+
+
         music.update(delta);
         constant.update(delta);
         titlescreen.update(delta);
         deathscreen.update(delta);
         whynot.update(delta);
-
         //credits.update(delta);
         //mouse.update(delta);
 
@@ -262,6 +263,10 @@ public class GameScreen implements Screen {
         //Following:
         // Methods for GameScreen
 
+        //Following resets score
+        if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) && Gdx.input.isKeyPressed(Input.Keys.T)) {
+            Score.highscorevalue = 0;
+        }
 
         //Restarts game
         if (Constant.EndGame && (Gdx.input.isKeyJustPressed(Input.Keys.T))) {

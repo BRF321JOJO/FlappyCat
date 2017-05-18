@@ -13,10 +13,11 @@ public class Whynot extends Image{
     Sound ImQazi = Gdx.audio.newSound(Gdx.files.internal("ImQazi.mp3"));
 
     static boolean Ecstacyplayedonce;
-    static boolean Ecstacyrequirespause;
     static boolean Heroplayedonce;
-    static boolean Herorequirespause;
+    static boolean Heroplaying;
     static boolean InBound;
+
+    int circleangle;
 
     public Whynot(SpriteBatch batch) {
         super (
@@ -36,7 +37,7 @@ public class Whynot extends Image{
     public void update(float delta) {
 
         int randomnumber = (int)(Math.random()*100);
-        int percentchanceofHero = 15;
+        int percentchanceofHero = 10;
 
         //Defines InBound
         if (posx >= 0 && posx<=Constant.screenwidth) {
@@ -44,10 +45,23 @@ public class Whynot extends Image{
         else {InBound = false;}
 
 
+        //Moves Qazi in a circle if INeedaHero is played, to celebrate
+        //InBound only to prevent circular motion off and moves onto screen
+        //Moves left slightly over time for some reason. Acceptable.
+        if (Heroplaying && posx < Constant.screenwidth) {
+            circleangle += 1;
+            posx += (float)(20 * Math.sin((circleangle)));
+            posy += (float)(20 * Math.cos((circleangle)));
+        }
+
+
         //Sets Qazi on screen and stops game
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q) && !Constant.EndGame) {
             //Sends Qazi on screen
             posx = 300;
+            //Reset posy also because circular motion may change y position slightly.
+            posy = 10;
+
             ImQazi.play(Music.IMQAZIvolume);
             System.out.println("Lord Qazi has appeared! Press Q to pray him away");
 
@@ -57,10 +71,9 @@ public class Whynot extends Image{
 
                 if(randomnumber>=percentchanceofHero) {
                     Music.playEcstasy();
-                    Ecstacyrequirespause = true;
                 } else {
                     Music.playINeedaHero();
-                    Herorequirespause = true;
+                    Heroplaying = true;
                 }
             }
             //Stops game
@@ -70,29 +83,26 @@ public class Whynot extends Image{
         //Sets Qazi back off screen
         else if ((Gdx.input.isKeyJustPressed(Input.Keys.Q)) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             //Only works if key pressed and Player in bounds (to avoid pressing to update dead game.)
-            if (CPlayer.InBound) {
-                if (!Titlescreen.onscreen) {
-                    if (Constant.EndGame) {
-                        System.out.println("Lord Qazi has been pleased and left");
-                    }
-                    //Puts large Player back off screen
-                    posx = Constant.Holdingarea;
+            if (CPlayer.InBound && !Titlescreen.onscreen) {
 
-                    //Controls music after Q pressed again
-                    //Resumes Mitchiri if music mot muted
-                    if (!Music.musicmuted) {
-                        Music.resumeMitchiri();
-                        //Pauses music playing depending on which on has played
-                        if (Ecstacyrequirespause) {
-                            Music.pauseEcstasy();
-                        }
-                        if (Herorequirespause) {
-                            Music.pauseINeedaHero();
-                        }
-                    }
-                    //Resumes game
-                    Constant.EndGame = false;
+                //Puts large Player back off screen
+                posx = Constant.Holdingarea;
+
+                //Controls music after Q pressed again
+                //Resumes Mitchiri if music mot muted
+                if (!Music.musicmuted) {
+                    Music.resumeMitchiri();
+                    //Pauses music
+                    Music.pauseEcstasy();
+                    Music.pauseINeedaHero();
+                    Heroplaying = false;
                 }
+                if (Constant.EndGame) {
+                    System.out.println("Lord Qazi has been pleased and left");
+                }
+
+                //Resumes game
+                Constant.EndGame = false;
             }
         }
     }

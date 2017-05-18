@@ -2,6 +2,8 @@ To-do:
 
 Add gifs (to pause screen)
 
+If unmute while Qazi from Whynot is in circular motion, possibility will unmute while Qazi off left side of screen...
+...trigering Mitichi Neko march which isn't necessarily wanted, yet I don't care.
 
 Order Spawn:
 Background, Music, Qazi, pipebot, pipetop, Laser, HUD, Titlescreen, Deathscreen, Whynot, Credits
@@ -19,3 +21,15 @@ Background, Music, Qazi, pipebot, pipetop, Laser, HUD, Titlescreen, Deathscreen,
 //Gdx.input.isKeyPressed(Input.Keys.SPACE)
         //This allows holding down key to take action, constantly
         //If isKeyJustPressed is used instead, then it only works each time it's pressed. Prevents holding down key to allow action.
+
+Circular motion in java is done easily using the math functions (sine and cosine)
+ circleangle += 45;
+ posx += (float) (a * Math.sin(Math.toRadians(circleangle)));
+ posy += (float) (b * Math.cos(Math.toRadians(circleangle)));
+
+ This changes the positions of an object according to sine and cosine and a circular angle which increases by a value every time it updates.
+ The circle angle value can be any value increase, which will change the radius of the rotation.
+ The circular rotation speed can be changed by multiplying the circleangle variable by a constant.
+ *Note: If the Math.toRadians or Math.toDegrees will swap what value the trigonometric values take in. (default radians)
+ *Note: Sine and cosine values will increase infinitely in range. Therefore, to get circular motion which stays in place,
+ the value of the circle angle needs to be reset each time.

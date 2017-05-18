@@ -17,6 +17,6 @@ public class Score {
             System.out.println("That's the highscore!");
         }
 
-        //When score value increases is in GameScreen update method
+        //Score value increases in GameScreen update method
     }
 }
