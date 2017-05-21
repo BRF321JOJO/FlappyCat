@@ -30,7 +30,7 @@ public class Background extends Image{
 
     public void update(float delta) {
 
-        //Happens every 3 frames
+        //Background moves every x frames
         if (Constant.framecounter % everyxframes == 0) {
 
             //Moves background left across screen

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MyGdxGame extends Game {
 	SpriteBatch batch;
+	//Usually 1000 values
 	public static final int V_WIDTH = 1000;
 	public static final int V_HEIGHT = 1000;
 

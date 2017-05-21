@@ -7,18 +7,23 @@ import com.badlogic.gdx.audio.Sound;
 /**
  * Created by Marla Scrub on 3/8/2017.
  */
+
 public class Constant {
 
-    //Value of e for random function
-    public static double Eulere = Math.E;
+    //Screen height and V_Height and such equalities have direct correlation. 100 to one is 100 to other.
+    //1000 V_Height = 516 screentop.
 
-    //Experimentally found in Background (screenheight is absolute distance between)
+   //Experimentally found in Background (screenheight is absolute distance between top and bottom)
+    //Usually -4
     public static int screenbottom = -4;
     //Usually 516
-    //Now 600
+    //(Less than 656)
     public static int screentop = 516;
+    //Usually 520
     public static int screenheight = 520;
+    //Usually 900
     public static int screenwidth = 900;
+    //Usually 1000
     public static int Holdingarea = 1000;
 
     //int counter for code not every frame
@@ -63,7 +68,7 @@ public class Constant {
             Cats.play(Music.catvolume);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-            System.out.println("Euler's number (e) is about " + Eulere);
+            System.out.println("Euler's number (e) is about " + Math.E);
         }
     }
 }

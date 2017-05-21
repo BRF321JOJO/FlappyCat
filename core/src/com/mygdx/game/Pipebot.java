@@ -14,7 +14,7 @@ public class Pipebot extends Entity{
                 new Texture ("pipebot.png"),
                 posx,
 //                (int)(Math.round(CPipe.pipemin + (300 - CPipe.pipemin)*(1/(1+
-//                        (Math.pow (Constant.Eulere, Math.random()*12-6)))) - CPipe.height)),
+//                        (Math.pow (Math.E, Math.random()*12-6)))) - CPipe.height)),
                 (int)Math.round(Math.random()*CPipe.pipeyrandom + CPipe.pipemin - CPipe.height),
                 CPipe.width,
                 CPipe.height,
@@ -34,8 +34,8 @@ public class Pipebot extends Entity{
         if (posx<=CPipe.Lbound) {
             posx = CPipe.Rbound;
 
-//            posy = (int)(Math.round(CPipe.pipemin + (300 - CPipe.pipemin)*(1/(1+
-//                    (Math.pow (Constant.Eulere, Math.random()*12-6)))) - CPipe.height));
+//            posy = (int)(Math.round(CPipe.pipemin + (300 - CPipe.pipemin)*
+//                    (1/(1+ (Math.pow (Math.E, Math.random()*12-6)))) - CPipe.height));
             posy = (int)Math.round(Math.random()*CPipe.pipeyrandom + CPipe.pipemin - CPipe.height);
         }
     }
@@ -43,6 +43,7 @@ public class Pipebot extends Entity{
     @Override
     public void render() {batch.draw(texture, posx, posy, width, height);}
     @Override
-    public void handleCollision(Entity e) {Constant.EndGame = true;}
+    public void handleCollision(Entity e) {
+    }
 }
 

@@ -34,5 +34,6 @@ public class Pipetop extends Entity{
     @Override
     public void render() {batch.draw(texture, posx, posy, width, height);}
     @Override
-    public void handleCollision(Entity e) {Constant.EndGame = true;}
+    public void handleCollision(Entity e) {
+    }
 }

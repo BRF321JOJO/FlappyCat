@@ -177,7 +177,7 @@ public class GameScreen implements Screen {
 
             //Resets y pos. (Otherwise would just move back without new randomness)
 //            pipebot[i].posy = (int) (Math.round(CPipe.pipemin + (300 - CPipe.pipemin) * (1 / (1 +
-//                             (Math.pow(Constant.Eulere, Math.random() * 12 - 6)))) - CPipe.height));
+//                             (Math.pow(Math.E, Math.random() * 12 - 6)))) - CPipe.height));
             pipebot[i].posy = (int) Math.round(Math.random() * CPipe.pipeyrandom + CPipe.pipemin - CPipe.height);
         }
         laser.posx = Constant.Holdingarea;
@@ -247,7 +247,7 @@ public class GameScreen implements Screen {
             hud.updateHighscore("Highscore: " + Score.highscorevalue);
         }
 
-        //Note: The following functions stay out of the if(!constant.EndGame) condition
+        //Note: The following functions stay out of the if(!constant.EndGame) condition (but within update)
 
 
         music.update(delta);
@@ -259,9 +259,8 @@ public class GameScreen implements Screen {
         //mouse.update(delta);
 
 
-
         //Following:
-        // Methods for GameScreen
+        // Methods for GameScreen (in update)
 
         //Following resets score
         if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) && Gdx.input.isKeyPressed(Input.Keys.T)) {
@@ -276,15 +275,22 @@ public class GameScreen implements Screen {
             }
         }
 
-        //Checks for collision. Comes from Entity class. Collision happens after everything updates
-        //Note: Only checks collision for player
+        //Checks for collision. Comes from Entity class. Collision happens after everything updates.
+        //Note: Only checks collision for things defined, not all entities
+        //Only if collision is allowed in debug
         if (Debug.playerCollide) {
+            //Generally tests if an entity collides with anything on the list of entities
             for (Entity e : Entity.entities) {
+                //Checks collision for player specifically
                 if (player.isCollide(e)) {
-                    //Tests for collision
-                    //Put any specifics or sounds in their respective classes, not here
+                    //Says all handling denoted within respective class
                     player.handleCollision(e);
                     e.handleCollision(player);
+                }
+                //Checks collision for laser
+                if (laser.isCollide(e)) {
+                    laser.handleCollision(e);
+                    e.handleCollision(laser);
                 }
             }
         }
@@ -300,5 +306,6 @@ public class GameScreen implements Screen {
                 System.out.println("Game continued from where left off");
             }
         }
+        //End of update method
     }
 }

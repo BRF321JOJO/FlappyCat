@@ -59,7 +59,7 @@ public class CPipe {
     //x value can be changed for different randomness
     //More extreme
     int pipeposySigmoid = (int)(Math.round(CPipe.pipemin + (CPipe.pipemax - CPipe.pipemin)*(1/(1+
-            (Math.pow (Constant.Eulere, Math.random()*12-6)))) - CPipe.height));
+            (Math.pow (Math.E, Math.random()*12-6)))) - CPipe.height));
 
     //Calmer
     int regrandom = (int)(Math.round(Math.random()*CPipe.pipeyrandom + CPipe.pipemin - CPipe.height));
