@@ -11,7 +11,6 @@ public class Background extends Image{
     //(1 is reg. 2 is max)
     int everyxframes = 2;
 
-
     public Background (SpriteBatch batch) {
         super(
                 new Texture ("Flappybackground.png"),

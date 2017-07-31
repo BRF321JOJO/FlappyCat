@@ -7,15 +7,22 @@ public class Score {
 
     static int scorevalue = 0;
     static int highscorevalue = 0;
-    static boolean once = false;
-
+    static boolean newhighscore;
 
     public void update(float delta) {
 
+        //Increases highscore value
         if (scorevalue > highscorevalue) {
             highscorevalue++;
+            newhighscore = true;
+        }
+
+        //Tells when can print highscore message (only after death, not every time increases)
+        //Message resets after every restart
+        if (newhighscore && CPlayer.dead) {
             System.out.println("That's the highscore!");
         }
+
 
         //Score value increases in GameScreen update method
     }

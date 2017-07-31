@@ -1,0 +1,40 @@
+To-do:
+
+Add gifs (to pause screen)
+
+Make it so hitting pipes causes high score message to appear.
+Seems to be caused by CPlayer.dead not triggering as true when hit pipe as highscore appears when die out of bounds.
+
+
+Order Spawn:
+Background, Music, Qazi, pipebot, pipetop, Laser, HUD, Titlescreen, Deathscreen, Whynot, Credits
+
+
+//  int counter for code not every frame
+
+//  int counter = 0;
+//  counter++;
+    //Happens every x frames
+//  if (counter % x == 0)
+//  {*Code that runs*}
+
+
+//Gdx.input.isKeyPressed(Input.Keys.SPACE)
+        //This allows holding down key to take action, constantly
+        //If isKeyJustPressed is used instead, then it only works each time it's pressed. Prevents holding down key to allow action.
+
+
+Circular motion in java is done using the math functions (sine and cosine)
+ circleangle += c;
+ posx += (float) (a * Math.sin(circleangle));
+ posy += (float) (b * Math.cos(circleangle));
+
+ - Changes the positions of an object according to sine and cosine and a circular angle which increases by a value every update.
+ - The circular angle determines the values the circle takes. If incorrect, the circle will move slowly or quickly in a direction.
+        EX: Circle angle = 1; Moves left slowly
+        *Note: Must be defined as double if using radians/pi
+ - The distance in the x and y axis is determined by a,b values. A = B for circle.
+
+ *Note: Math.toRadians or Math.toDegrees will swap what value the trigonometric values take in. (Default radians)
+ *Note: Sine and cosine values will increase infinitely in range. Therefore, the value of the circle angle can be reset to 0.
+ *Note: When reset, cannot go from 360 then to 0 or 2pi then to 0. - This will repeat the 360/2pi value twice.

@@ -6,7 +6,7 @@ package com.mygdx.game;
 public class CPlayer {
 
     //Proportions of player
-    // Salsacat (67), height(67)
+    //Salsacat (67), height(67)
     static int playerwidth = 55;
     static int playerheight = 55;
 

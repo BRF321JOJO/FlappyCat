@@ -30,9 +30,8 @@ public class GameScreen implements Screen {
     Titlescreen titlescreen;
     Deathscreen deathscreen;
     Whynot whynot;
-    //Credits credits;
 
-    //Mouse mouse;
+    Mouse mouse;
 
     //For score update sound
     Sound Flappypoint = Gdx.audio.newSound(Gdx.files.internal("Flappypoint.mp3"));
@@ -88,8 +87,7 @@ public class GameScreen implements Screen {
         titlescreen = new Titlescreen(game.batch);
         deathscreen = new Deathscreen(game.batch);
         whynot = new Whynot(game.batch);
-        //credits = new Credits(game.batch);
-        //mouse = new Mouse();
+        mouse = new Mouse();
     }
 
     //METHODS
@@ -134,7 +132,6 @@ public class GameScreen implements Screen {
         titlescreen.render();
         deathscreen.render();
         whynot.render();
-        //credits.render();
 
         game.batch.end();
     }
@@ -183,10 +180,12 @@ public class GameScreen implements Screen {
         laser.posx = Constant.Holdingarea;
         whynot.posx = Constant.Holdingarea;
 
-        //The following resets scores
+        //Resets scores and highscore message
         Score.scorevalue = 0;
+        Score.newhighscore = false;
+
+        //Prints you died message
         Deathscreen.Printonce = true;
-        Score.once = false;
 
         //The following resets the music
         //Resets game by making Mitchiri start and all other music stop (only is music is not muted anyway)
@@ -255,14 +254,13 @@ public class GameScreen implements Screen {
         titlescreen.update(delta);
         deathscreen.update(delta);
         whynot.update(delta);
-        //credits.update(delta);
-        //mouse.update(delta);
+        mouse.update(delta);
 
 
         //Following:
         // Methods for GameScreen (in update)
 
-        //Following resets score
+        //Following resets highscore
         if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) && Gdx.input.isKeyPressed(Input.Keys.T)) {
             Score.highscorevalue = 0;
         }
@@ -303,7 +301,7 @@ public class GameScreen implements Screen {
                 player.vely = CPlayer.velyconstant;
                 CPlayer.InBound = true;
                 Constant.EndGame = false;
-                System.out.println("Game continued from where left off");
+                System.out.println("Game continued");
             }
         }
         //End of update method

@@ -17,7 +17,7 @@ public class Whynot extends Image{
     static boolean Heroplaying;
     static boolean InBound;
 
-    int circleangle;
+    double circleangle;
 
     public Whynot(SpriteBatch batch) {
         super (
@@ -47,19 +47,20 @@ public class Whynot extends Image{
 
         //Moves Qazi in a circle if INeedaHero is played, to celebrate
         //InBound only to prevent circular motion off and moves onto screen
-        //Moves left slightly over time for some reason. Acceptable.
         if (Heroplaying && posx < Constant.screenwidth) {
-            circleangle += 1;
-            posx += (float)(20 * Math.sin((circleangle)));
-            posy += (float)(20 * Math.cos((circleangle)));
+            circleangle += Math.PI / 2;
+            posx += (float)(20 * Math.sin(circleangle));
+            posy += (float)(20 * Math.cos(circleangle));
         }
-
+        if (circleangle == 2*Math.PI) {
+            circleangle = 0;
+        }
 
         //Sets Qazi on screen and stops game
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q) && !Constant.EndGame) {
             //Sends Qazi on screen
             posx = 300;
-            //Reset posy also because circular motion may change y position slightly.
+            //Reset posy also because circular motion may change y position slightly when sent back out of bounds
             posy = 10;
 
             ImQazi.play(Music.IMQAZIvolume);

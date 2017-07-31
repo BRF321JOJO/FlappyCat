@@ -82,7 +82,7 @@ public class Player extends Entity{
     @Override
     public void handleCollision(Entity e) {
         Constant.EndGame = true;
-        //Makes it so only do action once after hit pipe.
+        //Makes it so only do action once after hit pipe
         if (!CPlayer.dead) {
             Dead.play(Music.deadvolume);
             CPlayer.dead = true;
