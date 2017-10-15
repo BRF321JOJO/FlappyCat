@@ -7,7 +7,7 @@ Seems to be caused by CPlayer.dead not triggering as true when hit pipe as highs
 
 
 Order Spawn:
-Background, Music, Qazi, pipebot, pipetop, Laser, HUD, Titlescreen, Deathscreen, Whynot, Credits
+Background, Music, Qazi, pipebot, pipetop, Laser, HUD, Titlescreen, Deathscreen, Whynot
 
 
 //  int counter for code not every frame

@@ -7,10 +7,10 @@ import com.badlogic.gdx.Gdx;
 public class Mouse {
 
     //Area of click ability
-    int leftx = 0;
-    int rightx = Constant.screenwidth;
-    int bottomy = 0;
-    int topy = Constant.screenheight;
+    private int leftx = 0;
+    private int rightx = Constant.screenwidth;
+    private int bottomy = 0;
+    private int topy = Constant.screenheight;
 
     public void update (float delta) {
 
@@ -22,10 +22,7 @@ public class Mouse {
             if (Gdx.input.getX() > leftx && Gdx.input.getX() < rightx) {
                 if(Gdx.input.getY() > bottomy && Gdx.input.getY() < topy){
 
-                    CPipe.pipespace += 200;
-                    System.out.println("200 more distance");
-
-
+                    System.out.println("Screen clicked");
                 }
             }
         }

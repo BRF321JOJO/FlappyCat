@@ -59,11 +59,9 @@ public class Player extends Entity{
 
 
         //Defines InBound
-
-        if (posy <= 0 || posy >= (MyGdxGame.V_HEIGHT - ceiling)) {
+        if (posy <= 0 || posy >= MyGdxGame.V_HEIGHT - ceiling) {
             CPlayer.InBound = false;
-        } else {
-            CPlayer.InBound = true;}
+        } else {CPlayer.InBound = true;}
 
         //Stops image movement at ceiling and floor
         if (!CPlayer.InBound) {
@@ -81,12 +79,19 @@ public class Player extends Entity{
     public void render() {batch.draw(texture, posx, posy, width, height);}
     @Override
     public void handleCollision(Entity e) {
-        Constant.EndGame = true;
+
         //Makes it so only do action once after hit pipe
         if (!CPlayer.dead) {
             Dead.play(Music.deadvolume);
             CPlayer.dead = true;
+
+            //For some reasons needs to print here too.
+            if (Score.newhighscore && CPlayer.dead) {
+                System.out.println("That's the highscore!");
+            }
+
         }
+        Constant.EndGame = true;
         CPlayer.InBound = false;
     }
 }

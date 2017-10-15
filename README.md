@@ -13,6 +13,6 @@ Pressing Left Shift + T resets high score
 Secrets:
 
 Pressing Q summons Qazi and pauses and after makes Qazi go away and resumes
-Chance of Fancy Qazi
+*Chance of Fancy Qazi*
 Press L for laser
 Press 3
