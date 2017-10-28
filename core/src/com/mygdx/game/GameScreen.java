@@ -31,6 +31,7 @@ public class GameScreen implements Screen {
     Deathscreen deathscreen;
     Whynot whynot;
 
+    //Separate because does not actually contribute to gameplay
     Mouse mouse;
 
     //For score update sound
@@ -259,10 +260,13 @@ public class GameScreen implements Screen {
 
         //Following:
         // Methods for GameScreen (in update)
+        //These methods work even if Endgame is false (as stated above)
 
         //Following resets highscore
-        if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) && Gdx.input.isKeyPressed(Input.Keys.T)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) && Gdx.input.isKeyPressed(Input.Keys.T) && CPlayer.dead
+                && Score.highscorevalue>0) {
             Score.highscorevalue = 0;
+            System.out.println("Score Reset: Due to Holding Down L-Shift While Restarting");
         }
 
         //Restarts game
