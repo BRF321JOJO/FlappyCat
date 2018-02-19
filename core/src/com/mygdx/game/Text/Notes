@@ -5,6 +5,20 @@ Add gifs (to pause screen)
 Make it so hitting pipes causes high score message to appear.
 Seems to be caused by CPlayer.dead not triggering as true when hit pipe as highscore appears when die out of bounds.
 
+//Code for collision
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+if(
+                posx < e.posx + e.width     &&
+                posx + width > e.posx       &&
+                posy < e.posy + e.height    &&
+                height + posy > e.posy
+                )
+        {
+            return true;
+        } else {
+            return false;
+        }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Order Spawn:
 Background, Music, Qazi, pipebot, pipetop, Laser, HUD, Titlescreen, Deathscreen, Whynot

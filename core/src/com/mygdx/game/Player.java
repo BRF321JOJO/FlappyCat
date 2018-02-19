@@ -28,7 +28,7 @@ public class Player extends Entity{
         );
     }
 
-//Methods
+    //Methods
 
     public void update(float delta) {
 
