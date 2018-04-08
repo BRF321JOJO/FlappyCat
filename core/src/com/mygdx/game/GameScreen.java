@@ -129,7 +129,6 @@ public class GameScreen implements Screen {
         hud.stage.draw();
         game.batch.begin();
 
-
         titlescreen.render();
         deathscreen.render();
         whynot.render();

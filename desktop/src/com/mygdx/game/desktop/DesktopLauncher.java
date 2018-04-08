@@ -7,7 +7,7 @@ import com.mygdx.game.Constant;
 import com.mygdx.game.MyGdxGame;
 
 public class DesktopLauncher {
-	public static void main (String[] arg) {
+	public static void main (String[] args) {
 
 		//Borderless Window
 		//System.setProperty("org.lwjgl.opengl.Window.undecorated", "true");
