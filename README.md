@@ -1,7 +1,7 @@
 # Flappy Cat
 
 If you want to download, ask me so I can give you a jar file of the lastest version or maybe you can just download the code itself. ;3  
-You can email me at BRF321JOJO@aol.com if you want.
+You can email me at brandonrf01@gmail.com if you want.
 
 Features:
 
